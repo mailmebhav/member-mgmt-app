@@ -6,6 +6,14 @@ import Copyright from '../../components/Copyright'
 import { useTheme } from '@mui/material';
 const index = () => {
   const mytheme = useTheme()
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
+  };
   return (
     <Container component={'main'} maxWidth="xs">
         <CssBaseline />

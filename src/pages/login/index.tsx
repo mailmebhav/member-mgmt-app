@@ -17,7 +17,8 @@ const index = () => {
             alignItems: 'center',
             border: '0.5px solid lightgray',
             borderRadius: 7,
-            padding: 8,  
+            padding: 8,
+            boxShadow: 'rgba(17, 12, 46, 0.15) 0px 48px 100px 0px',  
           }}
         >
           {/* <Box

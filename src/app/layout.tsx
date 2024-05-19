@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import "./globals.css"
+import { ThemeProvider } from "@mui/material";
+import mytheme from '../components/mytheme'
+import CssBaseline from '@mui/material/CssBaseline';
 
 export const metadata: Metadata = {
   title: "Member Manager",
@@ -11,12 +11,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>
+      <ThemeProvider theme={mytheme}>
+        <CssBaseline /> 
+        {children}
+        </ThemeProvider>
+      </body>
     </html>
-  );
+  )
 }

@@ -1,3 +1,4 @@
+"use client"
 import { Roboto } from "next/font/google";
 import { createTheme } from "@mui/material";
 import { red } from "@mui/material/colors"

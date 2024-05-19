@@ -1,10 +1,9 @@
 'use client'
-import { Avatar, Typography, Box, Button, Container, CssBaseline, TextField, ThemeProvider } from '@mui/material'
+import { Avatar, Typography, Box, Button, Container, CssBaseline, TextField, useTheme } from '@mui/material'
 import React from 'react'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Copyright from '../../components/Copyright'
-import { useTheme } from '@mui/material';
-const index = () => {
+const Page = () => {
   const mytheme = useTheme()
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -85,4 +84,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Page

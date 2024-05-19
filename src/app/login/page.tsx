@@ -1,17 +1,33 @@
 'use client'
-import { Avatar, Typography, Box, Button, Container, CssBaseline, TextField, useTheme } from '@mui/material'
+import { Avatar, Typography, Box, Button, Container, CssBaseline, TextField, useTheme, Alert } from '@mui/material'
 import React from 'react'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Copyright from '../../components/Copyright'
+import axios, { AxiosResponse } from 'axios';
 const Page = () => {
   const mytheme = useTheme()
+  const [apiresult, setapiresult] = React.useState(null)
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
+      email: data.get('username'),
       password: data.get('password'),
     });
+    const request = {
+      username: data.get("username"),
+      password: data.get("password")
+    }
+    axios.post("http://localhost:3000/api/login",request)
+    .then((res: AxiosResponse<any, any>)=>
+    {
+        setapiresult(res?.data?.message)
+    })
+    .catch((err)=>
+    {
+      setapiresult(null)
+    })
+
   };
   return (
     <Container component={'main'} maxWidth="xs">
@@ -43,7 +59,7 @@ const Page = () => {
         <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
               margin="normal"
               required
@@ -78,6 +94,13 @@ const Page = () => {
               Sign In
             </Button>
           </Box>
+          {
+            apiresult ? 
+            <Alert severity='success'>
+              {apiresult}
+            </Alert>
+            : ''
+          }
         </Box>
       <Copyright />
     </Container>

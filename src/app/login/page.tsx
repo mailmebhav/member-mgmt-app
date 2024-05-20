@@ -14,28 +14,43 @@ import React from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Copyright from "../../components/Copyright";
 import axios, { AxiosResponse } from "axios";
+import { AdminAuthResponse } from "../model/AdminAuthResponse";
+import { useRouter } from 'next/navigation'
+
 const Page = () => {
+  const router = useRouter()
+
   const mytheme = useTheme();
-  const [apiresult, setapiresult] = React.useState(null);
+  const [apiresult, setapiresult] = React.useState<AdminAuthResponse | null >(null);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("username"),
-      password: data.get("password"),
-    });
     const request = {
-      username: data.get("username"),
+      userName: data.get("username"),
       password: data.get("password"),
     };
+    const requestPayloadWithHeader = {
+      method: 'POST',
+      url: 'http://localhost:3000/api/adminauth/validate',
+      data: request,
+      headers: {
+        "Content-Type": "application/json" 
+       },
+    }
+   
     axios
-      .post("http://localhost:3000/api/login", request)
-      .then((res: AxiosResponse<any, any>) => {
-        setapiresult(res?.data?.message);
-      })
-      .catch((err) => {
-        setapiresult(null);
-      });
+		.request(requestPayloadWithHeader)
+		.then((response : AxiosResponse) =>  {
+      console.log(response)
+      if(response.status === 200)
+      {
+        router.push('/')
+      }
+      setapiresult(null)
+		})
+		.catch(function (error: any) {
+      setapiresult(null)
+		});
   };
   return (
     <Container component={"main"} maxWidth="xs">
@@ -102,7 +117,8 @@ const Page = () => {
             Sign In
           </Button>
         </Box>
-        {apiresult ? <Alert severity="success">{apiresult}</Alert> : ""}
+        {apiresult ? <Alert severity="success">{"Verified"}</Alert> : ""}
+
       </Box>
       <Copyright />
     </Container>

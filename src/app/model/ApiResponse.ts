@@ -1,7 +1,8 @@
 export class ApiResponse {
-  status: string = "";
-  errorMessage: string = "";
-  data: any;
+    status: string ="";
+    errorMessage: string = "";
+    data: any;
 
-  constructor() {}
+    constructor() {}
+
 }

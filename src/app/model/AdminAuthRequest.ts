@@ -1,4 +1,4 @@
 export class AdminAuthRequest {
-  userName: String = "";
-  password: String = "";
+    userName: String = "";
+    password: String = "";
 }

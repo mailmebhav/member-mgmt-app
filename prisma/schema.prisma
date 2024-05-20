@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model AdminAuth {
+  userName String   @id
+  password String
+  token    String
+  expires  DateTime
+}
+
+model Firm {
+  firmId   Int      @id @default(autoincrement())
+  firmName String
+  area     String
+  pincode  Int
+  Member   Member[]
+}
+
+model Member {
+  memberId    Int      @id @default(autoincrement())
+  firm        Firm     @relation(fields: [firmId], references: [firmId], onDelete: Cascade)
+  firmId      Int
+  ksmnId      String
+  yskId       String
+  familyId    String
+  memberName  String
+  fatherName  String
+  nokh        String
+  dob         DateTime
+  gender      String
+  bloodGroup  String
+  contact     String
+  contact2    String
+  kutchNative String
+}
+
+model PaymentDetail {
+  paymentId     Int     @id @default(autoincrement())
+  paymentMode   String
+  paymentFor    String
+  amount        Float
+  transactionId String
+  receiptNumber String
+}

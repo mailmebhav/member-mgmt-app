@@ -14,13 +14,10 @@ import React from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Copyright from "../../components/Copyright";
 import axios, { AxiosResponse } from "axios";
-import { AdminAuthResponse } from "../model/AdminAuthResponse";
 import { useRouter } from 'next/navigation'
-import { AdminAuthRequest } from "../model/AdminAuthRequest";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import LoadingButton from '@mui/lab/LoadingButton'
-import SaveIcon from '@mui/icons-material/Save'
 
 const validationSchema = yup.object({
   username: yup

@@ -1,12 +1,14 @@
-import Typography from "@mui/material/Typography";
+import { Typography, Box } from '@mui/material'
 
 const Copyright = () => {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" pt={1}>
-      {"Copyright © "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
+    <Box sx={{bottom: 0}}>
+      <Typography variant="body2" color="text.secondary" align="center" pt={1}>
+        {"Copyright © "}
+        {new Date().getFullYear()}
+        {"."}
+      </Typography>
+    </Box>
   );
 };
 

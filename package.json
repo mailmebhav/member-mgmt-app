@@ -10,6 +10,10 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,mdx,css,scss}\""
   },
   "dependencies": {
+    "@ag-grid-community/client-side-row-model": "^31.3.2",
+    "@ag-grid-community/core": "^31.3.2",
+    "@ag-grid-community/react": "^31.3.2",
+    "@ag-grid-community/styles": "^31.3.2",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@hookform/resolvers": "^3.4.2",

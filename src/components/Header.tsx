@@ -14,7 +14,7 @@ const Header = () => {
   const router = useRouter()
   return (
     <>
-      <Box sx={{ flexGrow: 1, height: '15vh', position: "static" }}>
+      <Box sx={{ flexGrow: 1, height: '10vh', position: "static" }}>
         <AppBar position="static" sx={{ background: "smokewhite" }}>
           <Toolbar>
             <Box
@@ -30,16 +30,15 @@ const Header = () => {
             />
             <Typography
               variant="body1"
-              component="span"
-              pl={2}
-              pt={0.5}
+              component="div"
+              paddingLeft={2}
+              paddingTop={0.5}
               sx={{
                 fontWeight: 12, 
                 flexGrow: 1,
                 cursor: 'pointer'
               }}
               color={'white'}
-              
               onClick={() => {
                 router.push('/')
               }}

@@ -14,29 +14,69 @@ import React from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Copyright from "../../components/Copyright";
 import axios, { AxiosResponse } from "axios";
+import { AdminAuthResponse } from "../model/AdminAuthResponse";
+import { useRouter } from 'next/navigation'
+import { AdminAuthRequest } from "../model/AdminAuthRequest";
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import LoadingButton from '@mui/lab/LoadingButton'
+import SaveIcon from '@mui/icons-material/Save'
+
+const validationSchema = yup.object({
+  username: yup
+    .string()
+    .required('Username is required'),
+  password: yup
+    .string()
+    .required('Password is required'),
+});
+
 const Page = () => {
+  const router = useRouter()
   const mytheme = useTheme();
-  const [apiresult, setapiresult] = React.useState(null);
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("username"),
-      password: data.get("password"),
-    });
+  const [buttonLoading, setButtonLoading] = React.useState(false)
+  const [verified, setVerified] = React.useState<boolean>(false);
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      password: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      setButtonLoading(true)
+      setVerified(false)
     const request = {
-      username: data.get("username"),
-      password: data.get("password"),
-    };
+      userName: values.username,
+      password: values.password
+    }
+    const requestPayloadWithHeader = {
+      method: 'POST',
+      url: 'http://localhost:3000/api/adminauth/validate',
+      data: request,
+      headers: {
+        "Content-Type": "application/json" 
+       },
+    }
+   
     axios
-      .post("http://localhost:3000/api/login", request)
-      .then((res: AxiosResponse<any, any>) => {
-        setapiresult(res?.data?.message);
-      })
-      .catch((err) => {
-        setapiresult(null);
-      });
-  };
+		.request(requestPayloadWithHeader)
+		.then((response : AxiosResponse) =>  {
+      console.log(response)
+      if(response.status === 200)
+      {
+        router.push('/')
+      }
+      setVerified(true)
+      setButtonLoading(false)
+
+		})
+		.catch(function (error: any) {
+      setVerified(true)
+      setButtonLoading(false)
+		});    
+  },
+  });
+
   return (
     <Container component={"main"} maxWidth="xs">
       <CssBaseline />
@@ -52,57 +92,68 @@ const Page = () => {
           boxShadow: "rgba(17, 12, 46, 0.15) 0px 48px 100px 0px",
         }}
       >
-        {/* <Box
-          component="img"
-          sx={{
-            height: 150,
-            width: 150, 
-          }}
-          alt="samaj logo"
-          src="logo-samaj.jpg"
-          /> */}
+        
         <Avatar sx={{ m: 1, bgcolor: `${mytheme.palette.primary.dark}` }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
+        <Box sx={{mt: 1}}>
+        
+        </Box>
+        <Box sx={{mt: 1}}>
+        <form onSubmit={formik.handleSubmit}>
+        <TextField
+          fullWidth
+          size="small"
+          id="username"
+          name="username"
+          label="username"
+          value={formik.values.username}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.username && Boolean(formik.errors.username)}
+          helperText={formik.touched.username && formik.errors.username}
+        />
+        <TextField
+          sx={{
+            mt: 2
+          }}
+          fullWidth
+          size="small"
+          id="password"
+          name="password" 
+          label="Password"
+          type="password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.password && Boolean(formik.errors.password)}
+          helperText={formik.touched.password && formik.errors.password}
+        />
+          <LoadingButton
+        loading={buttonLoading}
+        loadingPosition="start"
+        variant="outlined"
+        type="submit"
             fullWidth
-            id="username"
-            label="Username"
-            name="username"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
             sx={{
-              mt: 3,
-              mb: 2,
+              mt: 2,
+              color: 'white',
               background: `${mytheme.palette.primary.dark}`,
               "&:hover": {
+                color:'white',
                 background: `${mytheme.palette.primary.main}`,
               },
             }}
-          >
-            Sign In
-          </Button>
+      >
+        Sign in
+      </LoadingButton>
+      </form>
         </Box>
-        {apiresult ? <Alert severity="success">{apiresult}</Alert> : ""}
+        {verified ? <Alert severity="error">{"Credentials invalid"}</Alert> : ""}
+
       </Box>
       <Copyright />
     </Container>

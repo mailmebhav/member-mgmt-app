@@ -1,77 +1,72 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { AgGridReact } from '@ag-grid-community/react'; // React Data Grid Component
 import "@ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "@ag-grid-community/styles/ag-theme-material.css"; // Optional Theme applied to the grid
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { ColDef, ModuleRegistry } from '@ag-grid-community/core';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
-import axios, { AxiosResponse } from "axios";
-
+import { AxiosResponse } from "axios";
+import Button from '@mui/material/Button'
+import { FirmData, FirmDataProps } from '../types/FirmTypes.types';
+import { httpGetRequest } from '@/utils/httputils';
+import { firmsAPI } from '../data/URLs';
+import { headers } from '@/utils/header';
 ModuleRegistry.registerModules([ ClientSideRowModelModule ]);
 
-interface FrimData {
-    firmId: number,
-    firmName: String,
-    area: String,
-    pincode: number
-  }
 
-const FirmDataGrid = () => {
-    
-    const [rowData, setRowData] = useState<FrimData[]>([]);
-    // Column Definitions: Defines the columns to be displayed.
-    const [colDefs, setColDefs] = useState<ColDef<FrimData>[]>([
-      { field: "firmId" },
+    const EditButton = () => 
+    {
+      return <Button onClick={()=> window.alert('clicked')}>edit</Button>
+    }
+  const FirmDataGrid = (props: FirmDataProps) => {
+    const [rowData, setRowData] = useState<FirmData[]>([]);
+    const [colDefs] = useState<ColDef<any, any>[]>([
       { field: "firmName" },
       { field: "area" },
-      { field: "pincode" }
+      { field: "pincode" },
+      { field: "button", cellRenderer: EditButton , filter: false, floatingFilter: false }
     ]);
-   
     
-    useEffect(()=>{
-        const requestPayloadWithHeader = {
-            method: 'GET',
-            url: 'http://localhost:3000/api/firm',
-            headers: {
-              "Content-Type": "application/json" 
-             },
+    const fetchAPIRequest = useCallback(() => 
+    {     
+      httpGetRequest(firmsAPI,headers)
+        .then((response : AxiosResponse) =>  {
+          if(response.status === 200)
+          {
+              setRowData(response.data.data)
           }
-         
-          axios
-              .request(requestPayloadWithHeader)
-              .then((response : AxiosResponse) =>  {
-            console.log(response)
-              if(response.status === 200)
-              {
-                  setRowData(response.data.data)
-              }
-              else
-              {
-                setRowData([])
-              }
-              
-          })
-              .catch(function (error: any) {
-                setRowData([])
-
-          })
+          else
+          {
+            setRowData([])
+          }  
+      })
+      .catch(function (error: any) {
+            setRowData([])
+      })
     },[])
+    
+    useEffect(()=>
+    { 
+      fetchAPIRequest()
+    },[props.reload])
 
-    // Row Data: The data to be displayed.
-
-
-    const defaultColDef: ColDef = {
+    const defaultColDef: ColDef<any, any> = {
         flex: 1,
+        filter: true,
+        floatingFilter: true,
       }
     return (
-        // wrapping container with theme & size
-        <div className={"ag-theme-material"} style={{ width: '100%', height: 400 }}>
-        <AgGridReact<IRow>
+        <div className={"ag-theme-material"} style={{ width: '100%', height: 600 }}>
+        <AgGridReact<FirmData>
           rowData={rowData}
           columnDefs={colDefs}
           defaultColDef={defaultColDef}
+          pagination={true}
+          paginationPageSize={15}
+          onGridReady={fetchAPIRequest}
         />
       </div>
        )
    }
 
-export default FirmDataGrid
+export default FirmDataGrid 

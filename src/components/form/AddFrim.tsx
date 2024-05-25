@@ -1,38 +1,26 @@
 import * as React from 'react'
 import { Alert, Box, Dialog, DialogTitle, TextField, Button, useTheme } from "@mui/material"
 import { useFormik } from 'formik';
-import * as yup from 'yup';
 import LoadingButton from '@mui/lab/LoadingButton'
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
+import { VerifiedResponseType, AddFirmPropsType } from '../types/FirmTypes.types'
+import { FirmInitialValues } from '../data/InitialValues';
+import { FirmValidationSchema } from '../validation/ValidationScheme';
+import { headers } from '@/utils/header';
+import { firmsAPI } from '../data/URLs';
+import { httpPostRequest } from '@/utils/httputils';
 
-interface verifiedResponse
-{
-    status: boolean,
-    message: string,
-}
-
-const validationSchema = yup.object({
-    firmname: yup
-      .string()
-      .required('firm name is required'),
-    area: yup
-      .string()
-      .required('area is required'),
-    pincode: yup
-      .number()
-      .required('pincode is required'),
-  });
-export default function AddFirm() {
+export default function AddFirm(props: AddFirmPropsType) {
     const mytheme = useTheme()
     const [buttonLoading, setButtonLoading] = React.useState(false)
-    const [verified, setVerified] = React.useState<verifiedResponse>(
+    const [verified, setVerified] = React.useState<VerifiedResponseType>(
         {
             status: false,
             message: ''
         }
         );
-  
     const [addfirmopen, setAddfirmopen] = React.useState(false)
+
     const handleClickAddFrimOpen = () => {
         setAddfirmopen(true);
       }
@@ -42,48 +30,40 @@ export default function AddFirm() {
       }
 
       const formik = useFormik({
-        initialValues: {
-            firmname: '',
-            area: '',
-            pincode: null,
-          },
-        validationSchema: validationSchema,
-        onSubmit: (values) => {
+        initialValues: FirmInitialValues,
+        validationSchema: FirmValidationSchema,
+        onSubmit: (values, { resetForm }) => {
           setButtonLoading(true)
           setVerified({
             status: false,
             message: ''
         })
-        const request = {
+        
+        const requestPayload = {
             firmName: values.firmname,
             area: values.area,
             pincode: values.pincode,
           }
-          console.log(request)
-        const requestPayloadWithHeader = {
-          method: 'POST',
-          url: 'http://localhost:3000/api/firm',
-          data: request,
-          headers: {
-            "Content-Type": "application/json" 
-           },
-        }
-       
-        axios
-            .request(requestPayloadWithHeader)
+
+       httpPostRequest(firmsAPI, requestPayload, headers)
             .then((response : AxiosResponse) =>  {
-          console.log(response)
             if(response.status === 201)
             {
                 setVerified({
                     status: true,
                     message: 'New firm added Successfully'
                 })
+                props.refresh()
                 setTimeout(()=>
                 {
                     handleAddFrimClose()
+                    setVerified({
+                      status: false,
+                      message: ''
+                  })
+                  resetForm()
                 }
-                ,2000)
+                ,2000) 
             }
             else
             {
@@ -92,6 +72,7 @@ export default function AddFirm() {
                     message: 'Failed adding new firm'
                 })
             }
+            
             setButtonLoading(false)
         })
             .catch(function (error: any) {
@@ -100,9 +81,8 @@ export default function AddFirm() {
             message: 'Error from Server, while adding new firm'
         })
           setButtonLoading(false)
-        });    
-      }
-      });
+        });  
+      }});
 
   return (
     <React.Fragment>
@@ -183,6 +163,7 @@ export default function AddFirm() {
       >
         Add
       </LoadingButton>
+      <Button variant="outlined" onClick={handleAddFrimClose} fullWidth sx={{ mt: 1, mb: 1 }} >Close</Button>
         </form>
         {verified.status && verified.message && <Alert severity="success">{verified.message}</Alert>}
         {!verified.status && verified.message && <Alert severity="error">{verified.message}</Alert>}

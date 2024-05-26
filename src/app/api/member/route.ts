@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 export async function GET(req: NextRequest, res: NextResponse) {
   // Handle GET request logic
-  const firms = await prisma.member.findMany();
+  const firms = await prisma.member.findMany({ include: { firm: true } });
   let apiResponse = new ApiResponse();
   apiResponse.status = "OK";
   apiResponse.data = firms;

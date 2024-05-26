@@ -3,17 +3,18 @@ import React from "react";
 import {
   AppBar,
   Box,
-  Stack,
   Typography,
   Toolbar,
   useTheme,
 } from "@mui/material";
+import { useRouter } from "next/navigation"
 
 const Header = () => {
-  const mytheme = useTheme();
+  const mytheme = useTheme()
+  const router = useRouter()
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, height: '10vh', position: "static" }}>
         <AppBar position="static" sx={{ background: "smokewhite" }}>
           <Toolbar>
             <Box
@@ -28,14 +29,21 @@ const Header = () => {
               src="logo-samaj.png"
             />
             <Typography
-              variant="h6"
+              variant="body1"
               component="div"
-              pl={2}
-              pt={0.5}
-              sx={{ flexGrow: 1 }}
-              color={mytheme.palette.primary.main}
+              paddingLeft={2}
+              paddingTop={0.5}
+              sx={{
+                fontWeight: 12, 
+                flexGrow: 1,
+                cursor: 'pointer'
+              }}
+              color={'white'}
+              onClick={() => {
+                router.push('/')
+              }}
             >
-              Member manager
+              Member Manager
             </Typography>
           </Toolbar>
         </AppBar>

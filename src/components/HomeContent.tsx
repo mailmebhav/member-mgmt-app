@@ -1,33 +1,42 @@
 "use client";
 import * as React from "react";
 import {
-  Container,
   Grid,
   Avatar,
   Card,
   CardContent,
   Typography,
   CardActionArea,
+  Box
 } from "@mui/material";
 import GroupIcon from "@mui/icons-material/Group";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import CorporateFareIcon from "@mui/icons-material/CorporateFare";
-import { useTheme } from "@mui/material";
-const MainContent = () => {
-  const mytheme = useTheme();
+import { useTheme } from "@mui/material"
+import { useRouter } from "next/navigation"
+const HomeContent = () => {
+  const mytheme = useTheme()
+  const router = useRouter()
   return (
-    <Container maxWidth="md">
-      <Grid container spacing={10} pt={2}>
-        <Grid item xs={12} md={6}>
+    <Box sx={{flexGrow: 1}}>
+      <Grid container spacing={5} pt={2} direction="row" justifyContent={'center'} sx={{height: '85vh', position: "static" }}>
+        <Grid item xs={12} md={6} spacing={3}>
+          <Grid container justifyContent={'center'} alignItems={'center'}>
+            <Grid item xs={6}>
           <Card
             sx={{
+              alignItems: 'center',
               minWidth: 100,
               maxWidth: 350,
               boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 100px",
             }}
           >
             <CardActionArea
+              onClick={() => 
+              {
+                router.push('/firms')
+              }}
               sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -50,7 +59,7 @@ const MainContent = () => {
                 sx={{
                   width: 70,
                   height: 70,
-                  background: "white",
+                    background: "lightgray",
                   color: `${mytheme.palette.primary.main}`,
                 }}
               >
@@ -71,8 +80,12 @@ const MainContent = () => {
               </CardContent>
             </CardActionArea>
           </Card>
+          </Grid>
+          </Grid>
         </Grid>
         <Grid item xs={12} md={6}>
+        <Grid container justifyContent={'center'} alignItems={'center'}>
+            <Grid item xs={6}>
           <Card
             sx={{
               minWidth: 100,
@@ -81,6 +94,10 @@ const MainContent = () => {
             }}
           >
             <CardActionArea
+              onClick={() => 
+              {
+                router.push('/members')
+              }}
               sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -103,7 +120,7 @@ const MainContent = () => {
                 sx={{
                   width: 70,
                   height: 70,
-                  background: "white",
+                  background: "lightgray",
                   color: `${mytheme.palette.primary.main}`,
                 }}
               >
@@ -125,7 +142,11 @@ const MainContent = () => {
             </CardActionArea>
           </Card>
         </Grid>
+        </Grid>
+        </Grid>
         <Grid item xs={12} md={6}>
+        <Grid container justifyContent={'center'} alignItems={'center'}>
+            <Grid item xs={6}>
           <Card
             sx={{
               minWidth: 100,
@@ -134,6 +155,10 @@ const MainContent = () => {
             }}
           >
             <CardActionArea
+              onClick={() => 
+              {
+                router.push('/payments')
+              }}
               sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -156,7 +181,7 @@ const MainContent = () => {
                 sx={{
                   width: 70,
                   height: 70,
-                  background: "white",
+                  background: "lightgray",
                   color: `${mytheme.palette.primary.main}`,
                 }}
               >
@@ -178,7 +203,11 @@ const MainContent = () => {
             </CardActionArea>
           </Card>
         </Grid>
+        </Grid>
+        </Grid>
         <Grid item xs={12} md={6}>
+        <Grid container justifyContent={'center'} alignItems={'center'}>
+            <Grid item xs={6}>
           <Card
             sx={{
               minWidth: 100,
@@ -187,6 +216,10 @@ const MainContent = () => {
             }}
           >
             <CardActionArea
+              onClick={() => 
+              {
+                router.push('/reports')
+              }}
               sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -209,7 +242,7 @@ const MainContent = () => {
                 sx={{
                   width: 70,
                   height: 70,
-                  background: "white",
+                  background: "lightgray",
                   color: `${mytheme.palette.primary.main}`,
                 }}
               >
@@ -231,9 +264,13 @@ const MainContent = () => {
             </CardActionArea>
           </Card>
         </Grid>
+        </Grid>
+        </Grid>
       </Grid>
-    </Container>
+            
+    </Box>
+
   );
 };
 
-export default MainContent;
+export default HomeContent;

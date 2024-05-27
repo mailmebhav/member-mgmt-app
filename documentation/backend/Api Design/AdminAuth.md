@@ -11,12 +11,18 @@
       "status": "OK",
       "errorMessage": "",
       "data": [
-        {
-          "userName": "16aefdb4e6feedb53469c0210c8deecc650e822550f743c409e00b9a4fea1393",
-          "password": "089542505d659cecbb988bb5ccff5bccf85be2dfa8c221359079aee2531298bb",
-          "token": "5fbc4cc6dbdad18094cdb50d9ec0c034a6aef15c06c03aa0fb7b5fddfc744878",
-          "expires": "2024-05-20T10:05:38.215Z"
-        }
+          {
+              "userName": "16aefdb4e6feedb53469c0210c8deecc650e822550f743c409e00b9a4fea1393",
+              "password": "a853eb9056f559430f61147acdd07c0a94630b93ac5baae39c64bb91034a46a6",
+              "token": "e844d4f170da25c1801f68447c647c7e591ca93403304d1b36e541c0b0464f2b",
+              "expires": "2024-05-26T15:38:50.115Z"
+          },
+          {
+              "userName": "c1c224b03cd9bc7b6a86d77f5dace40191766c485cd55dc48caf9ac873335d6f",
+              "password": "e86f78a8a3caf0b60d8e74e5942aa6d86dc150cd3c03338aef25b7d2d7e3acc7",
+              "token": "8f6dc9f23927b6aaebd24304f2ec414c1f91538bb2c5cf9a4c316fecb57d487e",
+              "expires": "2024-05-26T08:40:02.279Z"
+          }
       ]
     }
     ```
@@ -51,7 +57,7 @@
     ```json
     {
       "userName": "Admin3",
-      "password": "updatedPassword"
+      "password": "newpassword"
     }
     ```
   - Response
@@ -62,7 +68,7 @@
       "errorMessage": "",
       "data": {
           "validUser": true,
-          "token": "f3ca1d529e15763f249aee907a6ea5b9b95a32dd7f78973ec2ffacf21e860578"
+          "token": "b41fdc1516e6b5dd1fccc05f5273f6b8ae85691ac7113a0577a2053ea4c399e5"
       }
     }
     ```
@@ -72,8 +78,8 @@
     ```json
     {
       "userName": "Admin3",
-      "oldPassword": "newpassword",
-      "newPassword": "updatedPassword"
+      "oldPassword": "updatedPassword",
+      "newPassword": "newpassword"
     }
     ```
   - Response
@@ -84,9 +90,9 @@
       "errorMessage": "",
       "data": {
           "userName": "16aefdb4e6feedb53469c0210c8deecc650e822550f743c409e00b9a4fea1393",
-          "password": "a853eb9056f559430f61147acdd07c0a94630b93ac5baae39c64bb91034a46a6",
-          "token": "2d54ad13cdedd2dbd9d7cff23b0b70d64b9d8fca17fd47faae7fa8560ade4668",
-          "expires": "2024-05-26T09:36:36.229Z"
+          "password": "089542505d659cecbb988bb5ccff5bccf85be2dfa8c221359079aee2531298bb",
+          "token": "7c738ba651ce7ca833cfcf21d31b84aa58e94b7a5d2714bedfef64228fb8e58a",
+          "expires": "2024-05-27T08:41:09.530Z"
       }
     }
     ```

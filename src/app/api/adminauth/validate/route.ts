@@ -1,10 +1,11 @@
 import { AdminAuthRequest } from "@/app/model/AdminAuthRequest";
 import { ApiResponse } from "@/app/model/ApiResponse";
-import { PrismaClient } from "@prisma/client";
+import { internalServerErrorResponse, unauthorizedResponse } from "@/utils/responseHandlers";
 import { NextRequest, NextResponse } from "next/server";
-import { createToken, createExpiryTime, createHash } from '../../../../utils/hashutil'
+import { prismaClientSingleton } from "../../../../../lib/prisma";
+import { createExpiryTime, createHash, createToken } from '../../../../utils/hashutil';
 
-const prisma = new PrismaClient();
+const prisma = prismaClientSingleton();
 
 export async function POST(req: NextRequest) {
   let reqData: AdminAuthRequest = await req.json();
@@ -20,7 +21,7 @@ export async function POST(req: NextRequest) {
     });
 
     if (!authData) {
-      return new NextResponse("Unauthorized", { status: 401 });
+      return unauthorizedResponse();
     }
     let hashedPassword = createHash(password);
     if (hashedPassword == authData.password) {
@@ -41,13 +42,9 @@ export async function POST(req: NextRequest) {
       apiResponse.data = { validUser: true, token: token };
       return NextResponse.json(apiResponse);
     } else {
-      return new NextResponse("Unauthorized", { status: 401 });
+      return unauthorizedResponse();
     }
   } catch (error: any) {
-    let errResponse = new ApiResponse();
-    errResponse.status = "INTERNAL_SERVER_ERROR";
-    errResponse.errorMessage = error?.message;
-    errResponse.data = null;
-    return new NextResponse(JSON.stringify(errResponse), { status: 500 });
+    return internalServerErrorResponse(error?.message);
   }
 }

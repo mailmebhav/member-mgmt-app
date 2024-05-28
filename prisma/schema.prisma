@@ -22,12 +22,12 @@ model Firm {
   firmName String
   area     String
   pincode  Int
-  Member   Member[]
+  member   Member[]
 }
 
 model Member {
-  memberId    Int      @id @default(autoincrement())
-  firm        Firm     @relation(fields: [firmId], references: [firmId], onDelete: Cascade)
+  memberId    Int             @id @default(autoincrement())
+  firm        Firm            @relation(fields: [firmId], references: [firmId], onDelete: Cascade)
   firmId      Int
   ksmnId      String
   yskId       String
@@ -41,13 +41,16 @@ model Member {
   contact     String
   contact2    String
   kutchNative String
+  payment     PaymentDetail[]
 }
 
 model PaymentDetail {
-  paymentId     Int     @id @default(autoincrement())
+  paymentId     Int    @id @default(autoincrement())
   paymentMode   String
   paymentFor    String
   amount        Float
   transactionId String
   receiptNumber String
+  member        Member @relation(fields: [memberId], references: [memberId])
+  memberId      Int
 }

@@ -9,6 +9,7 @@ import { FirmValidationSchema } from '../validation/ValidationScheme';
 import { headers } from '@/utils/header';
 import { firmsAPI } from '../data/URLs';
 import { httpPostRequest } from '@/utils/httputils';
+import useLocalStorage from "@/hooks/useLocalStorage"
 
 export default function AddFirm(props: AddFirmPropsType) {
     const mytheme = useTheme()
@@ -19,6 +20,7 @@ export default function AddFirm(props: AddFirmPropsType) {
             message: ''
         }
         );
+    const [value, ] = useLocalStorage("token")
     const [addfirmopen, setAddfirmopen] = React.useState(false)
 
     const handleClickAddFrimOpen = () => {
@@ -45,7 +47,7 @@ export default function AddFirm(props: AddFirmPropsType) {
             pincode: values.pincode,
           }
 
-       httpPostRequest(firmsAPI, requestPayload, headers)
+       httpPostRequest(firmsAPI, requestPayload, {...headers, "Authorization": value})
             .then((response : AxiosResponse) =>  {
             if(response.status === 201)
             {

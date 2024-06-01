@@ -2,38 +2,46 @@
 import { AgGridReact } from '@ag-grid-community/react'; // React Data Grid Component
 import "@ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "@ag-grid-community/styles/ag-theme-material.css"; // Optional Theme applied to the grid
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { ColDef, ModuleRegistry } from '@ag-grid-community/core';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 import { AxiosResponse } from "axios";
-import Button from '@mui/material/Button'
 import { FirmData, FirmDataProps } from '../types/FirmTypes.types';
 import { httpGetRequest } from '@/utils/httputils';
 import { firmsAPI } from '../data/URLs';
 import { headers } from '@/utils/header';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import { IconButton } from '@mui/material';
+import useLocalStorage from "@/hooks/useLocalStorage"
+import { useRouter } from 'next/navigation'
 ModuleRegistry.registerModules([ ClientSideRowModelModule ]);
 
-
-    const EditButton = () => 
+    const EditButton = (): ReactElement => 
     {
-      return <Button onClick={()=> window.alert('clicked')}>edit</Button>
+      return <IconButton onClick={()=> window.alert('clicked')}><EditNoteIcon/></IconButton> 
     }
   const FirmDataGrid = (props: FirmDataProps) => {
+    const router = useRouter()
     const [rowData, setRowData] = useState<FirmData[]>([]);
+    const [value, ] = useLocalStorage("token")
     const [colDefs] = useState<ColDef<any, any>[]>([
       { field: "firmName" },
       { field: "area" },
       { field: "pincode" },
-      { field: "button", cellRenderer: EditButton , filter: false, floatingFilter: false }
+      { field: "update", cellRenderer: EditButton , filter: false, floatingFilter: false }
     ]);
     
     const fetchAPIRequest = useCallback(() => 
     {     
-      httpGetRequest(firmsAPI,headers)
+      httpGetRequest(firmsAPI,{...headers, "Authorization": value})
         .then((response : AxiosResponse) =>  {
           if(response.status === 200)
           {
               setRowData(response.data.data)
+          }
+          else if (response.status === 401)
+          {
+              router.push('/login')
           }
           else
           {

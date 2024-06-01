@@ -18,7 +18,7 @@ import { useRouter } from 'next/navigation'
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import LoadingButton from '@mui/lab/LoadingButton'
-import useLocalStorage from "@/hooks/useLocalStorage"
+
 const validationSchema = yup.object({
   username: yup
     .string()
@@ -33,10 +33,6 @@ const Page = () => {
   const mytheme = useTheme();
   const [buttonLoading, setButtonLoading] = React.useState(false)
   const [verified, setVerified] = React.useState<boolean>(false);
-  const [, setValue] = useLocalStorage("token")
-  const saveToLocalStorage = (token:string) => {
-    setValue(token)
-  }
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -62,16 +58,14 @@ const Page = () => {
     axios
 		.request(requestPayloadWithHeader)
 		.then((response : AxiosResponse) =>  {
+      console.log(response)
       if(response.status === 200)
       {
-        saveToLocalStorage(response?.data?.data?.token)
         router.push('/')
       }
-      else
-      {
-        setVerified(true)
-        setButtonLoading(false)
-      }
+      setVerified(true)
+      setButtonLoading(false)
+
 		})
 		.catch(function (error: any) {
       setVerified(true)
@@ -138,20 +132,24 @@ const Page = () => {
           <LoadingButton
         loading={buttonLoading}
         loadingPosition="start"
-        variant="contained"
+        variant="outlined"
         type="submit"
             fullWidth
             sx={{
               mt: 2,
               color: 'white',
               background: `${mytheme.palette.primary.dark}`,
+              "&:hover": {
+                color:'white',
+                background: `${mytheme.palette.primary.main}`,
+              },
             }}
       >
         Sign in
       </LoadingButton>
       </form>
         </Box>
-        {verified ? <Alert sx={{ mt: 1 }} severity="error">{"Credentials invalid"}</Alert> : ""}
+        {verified ? <Alert severity="error">{"Credentials invalid"}</Alert> : ""}
 
       </Box>
       <Copyright />

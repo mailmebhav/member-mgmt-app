@@ -2,33 +2,36 @@
 import { AgGridReact } from '@ag-grid-community/react'; // React Data Grid Component
 import "@ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "@ag-grid-community/styles/ag-theme-material.css"; // Optional Theme applied to the grid
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
-import { ColDef, ModuleRegistry } from '@ag-grid-community/core';
+import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
+import {   ColDef,
+  ColGroupDef,
+  GetRowIdFunc,
+  GetRowIdParams,
+  GridApi,
+  GridOptions,
+  ModuleRegistry,
+  createGrid } from '@ag-grid-community/core';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 import { AxiosResponse } from "axios";
 import { FirmData, FirmDataProps } from '../types/FirmTypes.types';
 import { httpGetRequest } from '@/utils/httputils';
 import { firmsAPI } from '../data/URLs';
 import { headers } from '@/utils/header';
-import EditNoteIcon from '@mui/icons-material/EditNote';
-import { IconButton } from '@mui/material';
 import useLocalStorage from "@/hooks/useLocalStorage"
 import { useRouter } from 'next/navigation'
+import FirmEditButtonRenderer from './renderer/FirmEditButtonRenderer'
 ModuleRegistry.registerModules([ ClientSideRowModelModule ]);
 
-    const EditButton = (): ReactElement => 
-    {
-      return <IconButton onClick={()=> window.alert('clicked')}><EditNoteIcon/></IconButton> 
-    }
   const FirmDataGrid = (props: FirmDataProps) => {
+    const gridRef = useRef(null)
     const router = useRouter()
     const [rowData, setRowData] = useState<FirmData[]>([]);
     const [value, ] = useLocalStorage("token")
-    const [colDefs] = useState<ColDef<any, any>[]>([
+    const [colDefs] = useState<ColDef[]>([
       { field: "firmName" },
       { field: "area" },
       { field: "pincode" },
-      { field: "update", cellRenderer: EditButton , filter: false, floatingFilter: false }
+      { field: "update", cellRenderer: FirmEditButtonRenderer , filter: false, floatingFilter: false }
     ]);
     
     const fetchAPIRequest = useCallback(() => 
@@ -63,15 +66,21 @@ ModuleRegistry.registerModules([ ClientSideRowModelModule ]);
         filter: true,
         floatingFilter: true,
       }
-    return (
+      const getRowId = useCallback(
+        (params: GetRowIdParams<FirmData>) => params.data.id,
+        [],
+      );    return (
         <div className={"ag-theme-material"} style={{ width: '100%', height: 600 }}>
         <AgGridReact<FirmData>
+          ref={gridRef}
           rowData={rowData}
           columnDefs={colDefs}
           defaultColDef={defaultColDef}
           pagination={true}
           paginationPageSize={15}
+          getRowId={getRowId}
           onGridReady={fetchAPIRequest}
+          frameworkComponents={{FirmEditButtonRenderer,}}
         />
       </div>
        )

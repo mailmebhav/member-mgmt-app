@@ -30,8 +30,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.51.5",
     "sqlite3": "^5.1.7",
-    "yup": "^1.4.0",
-    "zod": "^3.23.8"
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/node": "^20",

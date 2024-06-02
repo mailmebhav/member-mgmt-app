@@ -23,11 +23,11 @@ export default function AddFirm(props: AddFirmPropsType) {
     const [value, ] = useLocalStorage("token")
     const [addfirmopen, setAddfirmopen] = React.useState(false)
 
-    const handleClickAddFrimOpen = () => {
+    const handleClickAddFrimOpen = (): void => {
         setAddfirmopen(true);
       }
     
-      const handleAddFrimClose = () => {
+      const handleAddFrimClose = (): void => {
         setAddfirmopen(false);
       }
 

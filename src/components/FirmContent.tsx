@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/material"
 import AddFirm from "./form/AddFrim"
-import EditFirm from "./form/EditFirm"
 import FirmDataGrid from '../components/datagrid/FrimDataGrid'
 const FirmContent = () => {
     const mytheme = useTheme()

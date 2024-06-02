@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 export const FirmValidationSchema = yup.object({
-    firmname: yup
+    firmName: yup
       .string()
       .required('firm name is required'),
     area: yup

@@ -42,7 +42,7 @@ export default function AddFirm(props: AddFirmPropsType) {
         })
         
         const requestPayload = {
-            firmName: values.firmname,
+            firmName: values.firmName,
             area: values.area,
             pincode: values.pincode,
           }
@@ -100,21 +100,20 @@ export default function AddFirm(props: AddFirmPropsType) {
         <DialogTitle>Add New Firm</DialogTitle>
         <Box sx ={{m: 2}}>
         <form onSubmit={formik.handleSubmit}>
-
         <TextField
         sx={{
             mt: 2
           }}
           fullWidth
           size="small"
-          id="firmname"
-          name="firmname"
-          label="firmname"
-          value={formik.values.firmname}
+          id="firmName"
+          name="firmName"
+          label="firmName"
+          value={formik.values.firmName}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          error={formik.touched.firmname && Boolean(formik.errors.firmname)}
-          helperText={formik.touched.firmname && formik.errors.firmname}
+          error={formik.touched.firmName && Boolean(formik.errors.firmName)}
+          helperText={formik.touched.firmName && formik.errors.firmName}
         />
         <TextField
                   sx={{

@@ -18,3 +18,19 @@ export type AddFirmPropsType =
 {
   refresh: Function,
 }
+export interface MemberData {
+  firmId: number,
+  ksmnId: string,
+  yskId: string,
+  familyId: string,
+  memberName: string,
+  fatherName: string,
+  nokh: string,
+  dob: string,
+  gender: string,
+  bloodGroup: string,
+  contact: string,
+  contact2: string,
+  kutchNative: string,
+  firm: any,
+}

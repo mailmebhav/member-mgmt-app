@@ -2,7 +2,7 @@
 import { AgGridReact } from '@ag-grid-community/react'; // React Data Grid Component
 import "@ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "@ag-grid-community/styles/ag-theme-material.css"; // Optional Theme applied to the grid
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState,useRef } from 'react'
 import { ColDef, ModuleRegistry } from '@ag-grid-community/core';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 import { AxiosResponse } from "axios";
@@ -63,18 +63,21 @@ ModuleRegistry.registerModules([ ClientSideRowModelModule ]);
         filter: true,
         floatingFilter: true,
       }
+      const gridRef = useRef()
     return (
         <div className={"ag-theme-material"} style={{ width: '100%', height: 600 }}>
-        <AgGridReact<FirmData>
-          rowData={rowData}
-          columnDefs={colDefs}
-          defaultColDef={defaultColDef}
-          pagination={true}
-          paginationPageSize={15}
-          onGridReady={fetchAPIRequest}
-        />
+          <AgGridReact<FirmData>
+            ref={gridRef}
+            rowData={rowData}
+            columnDefs={colDefs}
+            defaultColDef={defaultColDef}
+            pagination={true}
+            paginationPageSize={20}
+            // getRowId={getRowId}
+            onGridReady={fetchAPIRequest}   
+          />
       </div>
        )
    }
 
-export default FirmDataGrid 
+export default FirmDataGrid

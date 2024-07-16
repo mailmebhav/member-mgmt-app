@@ -31,7 +31,7 @@ const Header = () => {
             />
             <Typography
               variant="body2"
-              component="div"
+              component="span"
               paddingLeft={2}
               paddingTop={0.5}
               sx={{

@@ -5,7 +5,7 @@ export const LoginValidationSchema = yup.object({
   password: yup.string().required("password is required"),
 })
 export const FirmValidationSchema = yup.object({
-    firmName: yup
+    firmname: yup
       .string()
       .required('firm name is required'),
     area: yup

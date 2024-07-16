@@ -35,7 +35,7 @@ const HomeContent = () => {
               }}>
                 <CardActionArea
                 onClick={() => {
-                    router.push('/')
+                    router.push('/firms')
                 }}  
                 sx={{
                   display: 'flex',
@@ -85,7 +85,7 @@ const HomeContent = () => {
               }}>
                 <CardActionArea
                 onClick={() => {
-                    router.push('/')
+                    router.push('/members')
                 }}  
                 sx={{
                   display: 'flex',
@@ -135,7 +135,7 @@ const HomeContent = () => {
               }}>
                 <CardActionArea
                 onClick={() => {
-                    router.push('/')
+                    router.push('/payments')
                 }}  
                 sx={{
                   display: 'flex',

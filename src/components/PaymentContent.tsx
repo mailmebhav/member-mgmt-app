@@ -1,3 +1,4 @@
+
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useCallback } from "react";
@@ -10,6 +11,7 @@ import {
 import { useTheme } from "@mui/material"
 import AddPayment from "./form/AddPayment"
 import PaymentDetailDataGrid from "./datagrid/PaymentDetailDataGrid";
+import AddPaymentType from "./form/AddPaymentType";
 const PaymentContent = () => {
     const mytheme = useTheme()
     const [refreshPage, setRefreshPage] = React.useState<boolean>(false)
@@ -22,12 +24,13 @@ const PaymentContent = () => {
         <Grid container direction="row" justifyContent={'center'} >
         <Grid item xs={12} sx={{ m: 1, p: 1, borderRadius: 2, border: '1px solid gray', paddingLeft: 3 }}>
                 <Typography variant="h3" align="center" component="span" color={mytheme.palette.primary.main}>
-                    Payments
+                    Payment
                 </Typography>
                 <Typography variant="body1" align="center" component="span" marginLeft={2} color={'gray'}>
-                    Add/Upate/View payments
+                    Add/Upate/View payment
                 </Typography>
                 <Stack direction="row" sx={{float: 'right'}}>
+                  <AddPaymentType refresh={updateRefreshStatus} />
                 <AddPayment refresh={updateRefreshStatus} />
                 </Stack>
         </Grid>

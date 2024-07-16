@@ -127,7 +127,7 @@ React.useEffect(()=>
    
     return ( 
         <React.Fragment>
-        <Button variant="contained" size="small" sx={{color: 'white', borderRadius: 2, marginTop: 1, background: `${mytheme.palette.primary.main}`}}
+        <Button variant="contained" size="small" sx={{color: 'white', borderRadius: 2, marginRight: 1, marginTop: 1, background: `${mytheme.palette.primary.main}`}}
                       onClick={handleClickAddPaymentTypeOpen}
                       >
                           Add Payment Type

@@ -4,7 +4,7 @@ import { Autocomplete, Alert, Box, Dialog, DialogTitle, TextField, Button, useTh
 import { useFormik } from 'formik';
 import LoadingButton from '@mui/lab/LoadingButton'
 import { AxiosResponse } from "axios";
-import { VerifiedResponseType, AddFirmPropsType } from '../types/FirmTypes.types'
+import { VerifiedResponseType, RefreshPropsType } from '../types/GenericTypes.types'
 import { MemberInitialValues } from '../data/InitialValues';
 import { MemberValidationSchema } from '../validation/ValidationScheme';
 import { headers } from '@/utils/header';
@@ -14,7 +14,7 @@ import useLocalStorage from "@/hooks/useLocalStorage"
 import { useRouter } from 'next/navigation'
 import DatePicker from "react-datepicker"
 
-export default function AddMember(props: AddFirmPropsType) {
+export default function AddMember(props: RefreshPropsType) {
     const router = useRouter()
     const mytheme = useTheme()
     const [buttonLoading, setButtonLoading] = React.useState(false)
@@ -129,7 +129,7 @@ export default function AddMember(props: AddFirmPropsType) {
 
   return (
     <React.Fragment>
-    <Button variant="contained" size="small" sx={{color: 'white', background: `${mytheme.palette.primary.main}`}}
+    <Button variant="contained" size="small" sx={{color: 'white', borderRadius: 2, marginTop: 1, background: `${mytheme.palette.primary.main}`}}
                   onClick={handleClickAddMemberOpen}
                   >
                       Add Member
@@ -404,3 +404,4 @@ export default function AddMember(props: AddFirmPropsType) {
 
   )
 }
+

@@ -1,23 +1,35 @@
-import dayjs, { Dayjs } from 'dayjs' 
+ 
 const FirmInitialValues = {
-    firmName: '',
-    area: '',
-    pincode: null,
-  }
+  firmname: '',
+  area: '',
+  pincode: null,
+}
 const MemberInitialValues = {
-    firmName: '',
-    ksmnId: '',
-    yskId: '',
-    familyId: '',
-    memberName: '',
-    fatherName: '',
-    nokh: '',
-    dob: new Date(),
-    gender: '',
-    bloodGroup: '',
-    contact: '',
-    contact2: '',
-    kutchNative: ''
+  firmName: '',
+  ksmnId: '',
+  yskId: '',
+  familyId: '',
+  memberName: '',
+  fatherName: '',
+  nokh: '',
+  dob: new Date(),
+  gender: '',
+  bloodGroup: '',
+  contact: '',
+  contact2: '',
+  kutchNative: ''
 }
 
-export { FirmInitialValues, MemberInitialValues }
+const PaymentDetailsInitialValues = {
+  paymentFor: '',
+  paymentMode: '',
+  amount: '',
+  transactionId: '',
+  receiptNumber: '',
+  memberName: '',
+}
+
+const PaymentTypeInitialValues = {
+  paymentFor: '',
+}
+export { FirmInitialValues, MemberInitialValues, PaymentDetailsInitialValues, PaymentTypeInitialValues }

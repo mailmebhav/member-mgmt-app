@@ -9,10 +9,10 @@ import {   ColDef,
   ValueGetterParams, } from '@ag-grid-community/core';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 import { AxiosResponse } from "axios";
-import { FirmDataProps, MemberData } from '../types/FirmTypes.types';
-import { httpGetRequest } from '@/utils/httputils';
-import { membersAPI } from '../data/URLs';
-import { headers } from '@/utils/header';
+import { ReloadDataProps, MemberData } from '../types/GenericTypes.types'
+import { httpGetRequest } from '@/utils/httputils'
+import { membersAPI } from '../data/URLs'
+import { headers } from '@/utils/header'
 import useLocalStorage from "@/hooks/useLocalStorage"
 import { useRouter } from 'next/navigation'
 import MemberEditRenderer from './renderer/MemberEditRenderer'
@@ -27,7 +27,11 @@ ModuleRegistry.registerModules([ ClientSideRowModelModule ]);
 function dateToAgeFormatter(params: ValueGetterParams){
   return getAge(params.data.dob)
 }
+function firmNameFormatter( params: ValueGetterParams){
+  return params.data.firm.firmName + ", " +params.data.firm.area
+}
 const FieldsWithUpdate = [
+  { field: "firmName", valueGetter: firmNameFormatter},
   { field: "ksmnId" },
   { field: "yskId" },
   { field: "familyId" },
@@ -45,6 +49,8 @@ const FieldsWithUpdate = [
 ]
 const FieldWithoutUpdate = 
 [
+  // { field: "firm", valueGetter: (p: { firm: { firmName: string; area: string; }; }) => p.firm.firmName + ',' + p.firm.area  },
+  { field: "firmName", valueGetter: firmNameFormatter},
   { field: "ksmnId" },
   { field: "yskId" },
   { field: "familyId" },
@@ -57,11 +63,10 @@ const FieldWithoutUpdate =
   { field: "contact" },
   { field: "contact2" },
   { field: "kutchNative" },
-  // { field: "firm", valueGetter: (p: { firm: { firmName: string; area: string; }; }) => p.firm.firmName + ',' + p.firm.area  },
 ]
 
 
-const MemberDatGrid = (props: FirmDataProps) => {
+const MemberDataGrid = (props: ReloadDataProps) => {
   const gridRef = useRef(null)
   const router = useRouter()
   const [rowData, setRowData] = useState<MemberData[]>([]);
@@ -74,7 +79,7 @@ const MemberDatGrid = (props: FirmDataProps) => {
     setchecked(event.target.checked)
   }
 
-  const fetchAPIRequest = useCallback(() => 
+  const fetchMembersData = useCallback(() => 
   {     
     httpGetRequest(membersAPI,{...headers, "Authorization": value})
       .then((response : AxiosResponse) =>  {
@@ -99,11 +104,14 @@ const MemberDatGrid = (props: FirmDataProps) => {
   const handleRefreshMe = () => {
     setRefreshMe(!refreshMe)
 }
-
 useEffect(()=>
 { 
-  fetchAPIRequest()
-},[props.reload, refreshMe])
+   if(refreshMe !==props.reload)
+   {
+    setRefreshMe(props.reload)
+    fetchMembersData()
+   }
+},[props.reload])
 
 useEffect(()=>
 {
@@ -121,22 +129,22 @@ const getRowId = useCallback((params: GetRowIdParams) => params.data.memberId,[]
   return (
     <> 
     <Typography align="right" variant="body2">
-    <IconButton onClick={handleRefreshMe}><RefreshIcon /></IconButton>
-    <Checkbox checked={checked} onChange={handleChange} size={'small'} icon={<EditOutlined />} checkedIcon={<Edit />} />
+    <IconButton onClick={()=>fetchMembersData()} sx={{ color: 'gray' }}><RefreshIcon /></IconButton>
+    <Checkbox checked={checked} onChange={handleChange} sx={{ color: 'gray' }} size={'small'} icon={<EditOutlined />} checkedIcon={<Edit />} />
     </Typography>
-  <div className={"ag-theme-material"} style={{ width: '100%', height: 600 }}>
-    <AgGridReact<MemberData>
-      ref={gridRef}
-      rowData={rowData}
-      columnDefs={colDefs}
-      defaultColDef={defaultColDef}
-      pagination={true}
-      paginationPageSize={20}
-      getRowId={getRowId}
-      onGridReady={fetchAPIRequest}
-    />
-</div>
+    <div className={"ag-theme-material"} style={{ width: '100%', height: 600 }}>
+        <AgGridReact<MemberData>
+          ref={gridRef}
+          rowData={rowData}
+          columnDefs={colDefs}
+          defaultColDef={defaultColDef}
+          pagination={true}
+          paginationPageSize={20}
+          getRowId={getRowId}
+          onGridReady={fetchMembersData}
+        />
+    </div>
 </>  )
 }
 
-export default MemberDatGrid
+export default MemberDataGrid

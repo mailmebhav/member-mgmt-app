@@ -21,7 +21,7 @@ const HomeContent = () => {
   const router = useRouter()
   return (
     <Grid container direction="row" justifyContent={"center"} padding={0} margin={0} height={'100%'} sx={{background: "gray"}}>
-      <Grid item xs={12} sm={12} sx={{background:"orange", margin: 0, padding: '3%'}}>
+      <Grid item xs={12} sm={12} sx={{background:"#F5B041", margin: 0, padding: '3%'}}>
           <Typography variant="h4" align="center" color="white" marginBottom={2} sx={{fontWeight: 500}}>
             Yelahanka Kutch Kadava Patidar Samaj
           </Typography>

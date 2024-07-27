@@ -47,16 +47,16 @@ export default function AddMember(props: RefreshPropsType) {
             {
               setFirms(response.data.data)
             }
-            else if (response.status === 401)
-            {
-                router.push('/login')
-            }
             else
             {
               setFirms([])
             }  
         })
         .catch(function (error: any) {
+          if (error.response.status === 401)
+            {
+                router.push('/login')
+            }
               setFirms([])
         })
       },[]) 
@@ -119,6 +119,10 @@ export default function AddMember(props: RefreshPropsType) {
             setButtonLoading(false)
         })
             .catch(function (error: any) {
+              if (error.response.status === 401)
+                {
+                    router.push('/login')
+                }
           setVerified({
             status: true,
             message: 'Error from Server, while adding new member !!'

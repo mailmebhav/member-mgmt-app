@@ -87,16 +87,17 @@ const MemberDataGrid = (props: ReloadDataProps) => {
         {
             setRowData(response.data.data)
         }
-        else if (response.status === 401)
-        {
-            router.push('/login')
-        }
+  
         else
         {
           setRowData([])
         }  
     })
     .catch(function (error: any) {
+      if (error.response.status === 401)
+        {
+            router.push('/login')
+        }
           setRowData([])
     })
   },[])

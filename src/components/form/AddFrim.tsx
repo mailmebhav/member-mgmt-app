@@ -10,9 +10,12 @@ import { headers } from '@/utils/header';
 import { firmsAPI } from '../data/URLs';
 import { httpPostRequest } from '@/utils/httputils';
 import useLocalStorage from "@/hooks/useLocalStorage"
+import { useRouter } from 'next/navigation'
 
 const AddFirm = (props: RefreshPropsType)  => {
     const mytheme = useTheme()
+    const router = useRouter()
+
     const [buttonLoading, setButtonLoading] = React.useState(false)
     const [verified, setVerified] = React.useState<VerifiedResponseType>(
         {
@@ -78,6 +81,10 @@ const AddFirm = (props: RefreshPropsType)  => {
             setButtonLoading(false)
         })
             .catch(function (error: any) {
+              if (error.response.status === 401)
+                {
+                    router.push('/login')
+                }
           setVerified({
             status: true,
             message: 'Error from Server, while adding new firm'
@@ -85,6 +92,7 @@ const AddFirm = (props: RefreshPropsType)  => {
           setButtonLoading(false)
         });  
       }});
+    
 
   return (
     <React.Fragment>

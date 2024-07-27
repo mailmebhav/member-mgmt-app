@@ -1,43 +1,41 @@
-"use client";
 import { useState } from "react"
 
 const useLocalStorage = (key: string): Array<any> => {
   const [state, setState] = useState(() => {
     // Initialize the state
-    try {
-      if(window)
+    if(typeof window !== "undefined")
+      {
+        try
         {
-          const value = localStorage.getItem(key)
-          // Check if the local storage already has any values,
-          // otherwise initialize it with the passed initialValue
-          return value ? JSON.parse(value) : null
+            const value = window.sessionStorage.getItem(key)
+            return value ? JSON.parse(value) : null 
         }
-        else
+        catch(error)
         {
-          return null
+           console.log(error)
+           return null
         }
-     
-    } catch (error) {
-      console.log(error)
-    }
+      }
+      return null
   })
 
   const setValue = (value: string | Function) => {
-    try {
-      if(window)
-        {
- // If the passed value is a callback function,
-      //  then call it with the existing state.
-      const valueToStore = value instanceof Function ? value(state) : value
-      localStorage.setItem(key, JSON.stringify(valueToStore))
-      setState(value)
+    if(typeof window !== "undefined")
+    {
+        try{
+          const valueToStore = value instanceof Function ? value(state) : value
+          window.sessionStorage.setItem(key,JSON.stringify(valueToStore))
+          setState(value)
         }
-     else
-     {
+        catch(error)
+        {
+          console.log(error)
+          setState(null)
+        }
+    }
+    else
+    {
       setState(null)
-     }
-    } catch (error) {
-      console.log(error)
     }
   }
 

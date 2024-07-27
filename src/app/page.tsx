@@ -6,19 +6,19 @@ import useLocalStorage from "@/hooks/useLocalStorage"
 import { useRouter } from 'next/navigation'
 
 export default function Page() {
+  const [isClient , setIsClient] = React.useState(false)
+  React.useEffect(()=> {
+    setIsClient(true)
+  },[])
   const router = useRouter()
-  const [value, ] = useLocalStorage("token")
-  if(value)
-  {
+  const [token, ] = useLocalStorage("token")
   return (
+    isClient &&  ( token ? (
     <>
       <Header />
       <HomeContent />
     </>
-  );
-  }
-  else
-  {
-      router.push('/login')
-  }
+    ) : router.push('/login')
+  )
+)
 }

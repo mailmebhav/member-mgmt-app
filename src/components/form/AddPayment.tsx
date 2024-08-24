@@ -189,7 +189,7 @@ const AddPayment = (props: RefreshPropsType)  => {
               error={Boolean(formik.touched.memberName && formik.errors.memberName)}
               fullWidth
               helperText={formik.touched.memberName && formik.errors.memberName}
-              label="memberName"
+              label="Member name"
               name="memberName"
               variant="outlined"
           />
@@ -205,7 +205,7 @@ const AddPayment = (props: RefreshPropsType)  => {
           size="small"
           id="paymentMode"
           name="paymentMode"
-          label="paymentMode"
+          label="Payment mode"
           value={formik.values.paymentMode}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -240,7 +240,7 @@ const AddPayment = (props: RefreshPropsType)  => {
               error={Boolean(formik.touched.paymentFor && formik.errors.paymentFor)}
               fullWidth
               helperText={formik.touched.paymentFor && formik.errors.paymentFor}
-              label="paymentFor"
+              label="Payment For"
               name="paymentFor"
               variant="outlined"
           />
@@ -254,7 +254,7 @@ const AddPayment = (props: RefreshPropsType)  => {
           size="small"
           id="amount"
           name="amount"
-          label="amount"
+          label="Amount"
           type='number'
           value={formik.values.amount}
           onChange={formik.handleChange}
@@ -270,7 +270,7 @@ const AddPayment = (props: RefreshPropsType)  => {
           size="small"
           id="transactionId"
           name="transactionId"
-          label="transactionId"
+          label="Transaction Id"
           value={formik.values.transactionId}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -285,7 +285,7 @@ const AddPayment = (props: RefreshPropsType)  => {
           size="small"
           id="receiptNumber"
           name="receiptNumber"
-          label="receiptNumber"
+          label="Receipt Number"
           value={formik.values.receiptNumber}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}

@@ -117,7 +117,7 @@ const AddFirm = (props: RefreshPropsType)  => {
           size="small"
           id="firmname"
           name="firmname"
-          label="firmname"
+          label="Firm name"
           value={formik.values.firmname}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -132,7 +132,7 @@ const AddFirm = (props: RefreshPropsType)  => {
           size="small"
           id="area"
           name="area"
-          label="area"
+          label="Area"
           value={formik.values.area}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -147,7 +147,7 @@ const AddFirm = (props: RefreshPropsType)  => {
           size="small"
           id="pincode"
           name="pincode"
-          label="pincode"
+          label="Pincode"
           type='number'
           value={formik.values.pincode}
           onChange={formik.handleChange}

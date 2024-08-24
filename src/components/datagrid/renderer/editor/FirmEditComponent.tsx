@@ -102,7 +102,7 @@ console.log(props.data)
       size="small"
       id="firmName"
       name="firmName"
-      label="firmName"
+      label="Firm name"
       value={formik.values.firmName}
       onChange={formik.handleChange}
       onBlur={formik.handleBlur}
@@ -116,7 +116,7 @@ console.log(props.data)
       size="small"
       id="area"
       name="area"
-      label="area"
+      label="Area"
       value={formik.values.area}
       onChange={formik.handleChange}
       onBlur={formik.handleBlur}
@@ -130,7 +130,7 @@ console.log(props.data)
       size="small"
       id="pincode"
       name="pincode"
-      label="pincode"
+      label="Pincode"
       type='number'
       value={formik.values.pincode}
       onChange={formik.handleChange}

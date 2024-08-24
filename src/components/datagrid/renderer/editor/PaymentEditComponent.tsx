@@ -187,7 +187,7 @@ const getValueFromPaymemtOptions = (value: string) => {
                   size="small"
                   error={Boolean(formik.touched.memberId && formik.errors.memberId)}
                   fullWidth
-                  label="memberName"
+                  label="Member name"
                   name="memberName"
                   variant="outlined"
               />
@@ -203,7 +203,7 @@ const getValueFromPaymemtOptions = (value: string) => {
               size="small"
               id="paymentMode"
               name="paymentMode"
-              label="paymentMode"
+              label="Payment Mode"
               value={formik.values.paymentMode}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -241,7 +241,8 @@ const getValueFromPaymemtOptions = (value: string) => {
                   size="small"
                   error={Boolean(formik.touched.paymentFor && formik.errors.paymentFor)}
                   fullWidth
-                  helperText              label="paymentFor"
+                  helperText              
+                  label="Payment for"
                   name="paymentFor"
                   variant="outlined"
               />
@@ -255,7 +256,7 @@ const getValueFromPaymemtOptions = (value: string) => {
               size="small"
               id="amount"
               name="amount"
-              label="amount"
+              label="Amount"
               type='number'
               value={formik.values.amount}
               onChange={formik.handleChange}
@@ -270,7 +271,7 @@ const getValueFromPaymemtOptions = (value: string) => {
               size="small"
               id="transactionId"
               name="transactionId"
-              label="transactionId"
+              label="Transaction Id"
               value={formik.values.transactionId}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -284,7 +285,7 @@ const getValueFromPaymemtOptions = (value: string) => {
               size="small"
               id="receiptNumber"
               name="receiptNumber"
-              label="receiptNumber"
+              label="Receipt Number"
               value={formik.values.receiptNumber}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}

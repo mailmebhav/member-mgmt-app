@@ -16,9 +16,43 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import CorporateFareIcon from "@mui/icons-material/CorporateFare";
 import { useTheme } from "@mui/material"
 import { useRouter } from "next/navigation"
+import { countsApi } from '../components/data/URLs'
+import { headers } from '@/utils/header'
+import useLocalStorage from "@/hooks/useLocalStorage"
+import { httpGetRequest } from '@/utils/httputils'
+import { AxiosResponse } from "axios";
+
 const HomeContent = () => {
   const mytheme = useTheme()
   const router = useRouter()
+  const [value, ] = useLocalStorage("token")
+  const [counts, setCounts] = React.useState(null)
+  
+  const fetchCounts = React.useCallback(() => 
+    {     
+      httpGetRequest(countsApi,{...headers, "Authorization": value})
+        .then((response : AxiosResponse) =>  {
+          if(response.status === 200)
+          {
+            setCounts(response.data.data)
+          }
+          else
+          {
+            setCounts(null)
+          }  
+      })
+      .catch(function (error: any) {
+        if (error.response.status === 401)
+          {
+              router.push('/login')
+          }
+          setCounts(null)
+      })
+    },[])
+  React.useEffect(()=>
+  {
+    fetchCounts()
+  },[])
   return (
     <Grid container direction="row" justifyContent={"center"} padding={0} margin={0} height={'100%'} sx={{background: "gray"}}>
       <Grid item xs={12} sm={12} sx={{background:"#F5B041", margin: 0, padding: '3%'}}>
@@ -191,15 +225,21 @@ const HomeContent = () => {
                 Members
                 <Stack direction="row">
               <Typography color="white" variant="h6" align="center" sx={{border: '0.5px solid orange', p: 1, borderRadius: 2, marginRight: 1}}>
-                    Male<span style={{borderLeft: '0.5px solid orange', marginLeft: 5, paddingLeft: 5, color:'orange', fontSize: 25, fontWeight: 'bold'}}>2000</span>
+                    Male<span style={{borderLeft: '0.5px solid orange', marginLeft: 5, paddingLeft: 5, color:'orange', fontSize: 25, fontWeight: 'bold'}}>
+                    {counts && counts.maleMemberCount ? counts.maleMemberCount: 'NA'}
+                    </span>
                     </Typography>
 
               <Typography color="white" variant="h6" align="center" sx={{border: '0.5px solid orange', p: 1, borderRadius: 2, marginRight: 1}}>
-                    Female<span style={{borderLeft: '0.5px solid orange', marginLeft: 5, paddingLeft: 5, color:'orange', fontSize: 25, fontWeight: 'bold'}}>2000</span>
+                    Female<span style={{borderLeft: '0.5px solid orange', marginLeft: 5, paddingLeft: 5, color:'orange', fontSize: 25, fontWeight: 'bold'}}>
+                    {counts && counts.femaleMemberCount ? counts.femaleMemberCount: 'NA'}
+                    </span>
                     </Typography>
 
               <Typography color="white" variant="h6" align="center" sx={{border: '0.5px solid orange', p: 1, borderRadius: 2, marginRight: 2}}>
-                    Total<span style={{borderLeft: '0.5px solid orange', marginLeft: 5, paddingLeft: 5, color:'orange', fontSize: 25, fontWeight: 'bold'}}>2000</span>
+                    Total<span style={{borderLeft: '0.5px solid orange', marginLeft: 5, paddingLeft: 5, color:'orange', fontSize: 25, fontWeight: 'bold'}}>
+                    {counts && counts.memberCount ? counts.memberCount: 'NA'}
+                    </span>
                     </Typography>
                 </Stack>
                 </Typography> 
@@ -208,7 +248,9 @@ const HomeContent = () => {
                 Firms
                 <Stack direction="row">
               <Typography color="white" variant="h6" align="center" sx={{border: '0.5px solid orange', p: 1, borderRadius: 2, marginRight: 1}}>
-                    Total<span style={{borderLeft: '0.5px solid orange', marginLeft: 5, paddingLeft: 5, color:'orange', fontSize: 25, fontWeight: 'bold'}}>2000</span>
+                    Total<span style={{borderLeft: '0.5px solid orange', marginLeft: 5, paddingLeft: 5, color:'orange', fontSize: 25, fontWeight: 'bold'}}>
+                      {counts && counts.firmCount ? counts.firmCount: 'NA'}
+                    </span>
                     </Typography>
 </Stack>
 </Typography>

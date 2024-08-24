@@ -3,16 +3,19 @@ import { Alert, Box, Dialog, DialogTitle, TextField, Button, useTheme } from "@m
 import { useFormik } from 'formik';
 import LoadingButton from '@mui/lab/LoadingButton'
 import { AxiosResponse } from "axios";
-import { VerifiedResponseType, AddFirmPropsType } from '../types/FirmTypes.types'
+import { VerifiedResponseType, RefreshPropsType } from '../types/GenericTypes.types'
 import { FirmInitialValues } from '../data/InitialValues';
 import { FirmValidationSchema } from '../validation/ValidationScheme';
 import { headers } from '@/utils/header';
 import { firmsAPI } from '../data/URLs';
 import { httpPostRequest } from '@/utils/httputils';
 import useLocalStorage from "@/hooks/useLocalStorage"
+import { useRouter } from 'next/navigation'
 
-export default function AddFirm(props: AddFirmPropsType) {
+const AddFirm = (props: RefreshPropsType)  => {
     const mytheme = useTheme()
+    const router = useRouter()
+
     const [buttonLoading, setButtonLoading] = React.useState(false)
     const [verified, setVerified] = React.useState<VerifiedResponseType>(
         {
@@ -23,11 +26,11 @@ export default function AddFirm(props: AddFirmPropsType) {
     const [value, ] = useLocalStorage("token")
     const [addfirmopen, setAddfirmopen] = React.useState(false)
 
-    const handleClickAddFrimOpen = () => {
+    const handleClickAddFrimOpen = (): void => {
         setAddfirmopen(true);
       }
     
-      const handleAddFrimClose = () => {
+      const handleAddFrimClose = (): void => {
         setAddfirmopen(false);
       }
 
@@ -78,6 +81,10 @@ export default function AddFirm(props: AddFirmPropsType) {
             setButtonLoading(false)
         })
             .catch(function (error: any) {
+              if (error.response.status === 401)
+                {
+                    router.push('/login')
+                }
           setVerified({
             status: true,
             message: 'Error from Server, while adding new firm'
@@ -85,10 +92,11 @@ export default function AddFirm(props: AddFirmPropsType) {
           setButtonLoading(false)
         });  
       }});
+    
 
   return (
     <React.Fragment>
-      <Button variant="contained" size="small" sx={{color: 'white', background: `${mytheme.palette.primary.main}`}}
+      <Button variant="contained" size="small" sx={{color: 'white', borderRadius: 2, marginTop: 1, background: `${mytheme.palette.primary.main}`}}
                     onClick={handleClickAddFrimOpen}
                     >
                         Add Firm
@@ -174,3 +182,4 @@ export default function AddFirm(props: AddFirmPropsType) {
     </React.Fragment>
   );
 }
+export default React.memo(AddFirm)

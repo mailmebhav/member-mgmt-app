@@ -3,7 +3,6 @@ import {
   Avatar,
   Typography,
   Box,
-  Button,
   Container,
   CssBaseline,
   TextField,
@@ -19,15 +18,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import LoadingButton from '@mui/lab/LoadingButton'
 import useLocalStorage from "@/hooks/useLocalStorage"
-const validationSchema = yup.object({
-  username: yup
-    .string()
-    .required('Username is required'),
-  password: yup
-    .string()
-    .required('Password is required'),
-});
-
+import { LoginValidationSchema } from '../../components/validation/ValidationScheme'
 const Page = () => {
   const router = useRouter()
   const mytheme = useTheme();
@@ -42,7 +33,7 @@ const Page = () => {
       username: '',
       password: '',
     },
-    validationSchema: validationSchema,
+    validationSchema: LoginValidationSchema,
     onSubmit: (values) => {
       setButtonLoading(true)
       setVerified(false)
@@ -90,7 +81,7 @@ const Page = () => {
           flexDirection: "column",
           alignItems: "center",
           border: "0.5px solid lightgray",
-          borderRadius: 7,
+          borderRadius: 2,
           padding: 8,
           boxShadow: "rgba(17, 12, 46, 0.15) 0px 48px 100px 0px",
         }}

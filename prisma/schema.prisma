@@ -54,3 +54,8 @@ model PaymentDetail {
   member        Member @relation(fields: [memberId], references: [memberId])
   memberId      Int
 }
+
+model PaymentType {
+  paymentTypeId Int @id @default(autoincrement())
+  paymentFor  String
+}

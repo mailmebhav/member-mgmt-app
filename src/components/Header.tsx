@@ -6,22 +6,23 @@ import {
   Typography,
   Toolbar,
   useTheme,
+  IconButton
 } from "@mui/material";
 import { useRouter } from "next/navigation"
-
+import HomeIcon from "@mui/icons-material/Home"
 const Header = () => {
   const mytheme = useTheme()
   const router = useRouter()
   return (
     <>
-      <Box sx={{ flexGrow: 1, height: '10vh', position: "static" }}>
+      <Box sx={{ flexGrow: 1, height: 'auto', position: "static" }}>
         <AppBar position="static" sx={{ background: "smokewhite" }}>
           <Toolbar>
             <Box
               sx={{
                 width: 40,
                 height: 40,
-                border: "2px solid lightgray",
+                border: "2px solid gray",
                 borderRadius: 1,
               }}
               component="img"
@@ -29,22 +30,26 @@ const Header = () => {
               src="logo-samaj.png"
             />
             <Typography
-              variant="body1"
-              component="div"
+              variant="body2"
+              component="span"
               paddingLeft={2}
               paddingTop={0.5}
               sx={{
-                fontWeight: 12, 
+                fontWeight: 500,
+                fontSize: 16, 
                 flexGrow: 1,
                 cursor: 'pointer'
               }}
-              color={'white'}
+              color={'orange'}
               onClick={() => {
                 router.push('/')
               }}
             >
               Member Manager
             </Typography>
+            <IconButton sx={{float: 'right', color: 'orange'}} onClick={()=>router.push('/')}>
+              <HomeIcon />
+            </IconButton>
           </Toolbar>
         </AppBar>
       </Box>

@@ -163,7 +163,7 @@ export default function AddMember(props: RefreshPropsType) {
               error={Boolean(formik.touched.firmName && formik.errors.firmName)}
               fullWidth
               helperText={formik.touched.firmName && formik.errors.firmName}
-              label="firm name"
+              label="Firm name"
               name="firm name"
               variant="outlined"
           />
@@ -222,7 +222,7 @@ export default function AddMember(props: RefreshPropsType) {
         size="small"
         id="memberName"
         name="memberName"
-        label="Member Name"
+        label="Member name"
         value={formik.values.memberName}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -237,7 +237,7 @@ export default function AddMember(props: RefreshPropsType) {
         size="small"
         id="fatherName"
         name="fatherName"
-        label="Father Name"
+        label="Father name"
         value={formik.values.fatherName}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -298,7 +298,7 @@ export default function AddMember(props: RefreshPropsType) {
         size="small"
         id="bloodGroup"
         name="bloodGroup"
-        label="Blood Group"
+        label="Blood group"
         value={formik.values.bloodGroup}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -324,7 +324,7 @@ export default function AddMember(props: RefreshPropsType) {
         size="small"
         id="contact"
         name="contact"
-        label="contact"
+        label="Contact"
         type='number'
         value={formik.values.contact}
         onChange={formik.handleChange}
@@ -340,7 +340,7 @@ export default function AddMember(props: RefreshPropsType) {
         size="small"
         id="contact2"
         name="contact2"
-        label="contact 2"
+        label="Contact 2"
         type='number'
         value={formik.values.contact2}
         onChange={formik.handleChange}

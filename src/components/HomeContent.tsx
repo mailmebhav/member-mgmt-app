@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import * as React from "react";
+import * as React from "react"
 import {
   Grid,
   Avatar,
@@ -21,14 +22,16 @@ import { headers } from '@/utils/header'
 import useLocalStorage from "@/hooks/useLocalStorage"
 import { httpGetRequest } from '@/utils/httputils'
 import { AxiosResponse } from "axios";
+import { CountResponse } from "@/app/model/CountResponse";
+import { useCallback, useEffect, useState } from "react";
 
 const HomeContent = () => {
   const mytheme = useTheme()
   const router = useRouter()
   const [value, ] = useLocalStorage("token")
-  const [counts, setCounts] = React.useState(null)
+  const [counts, setCounts] = useState<CountResponse | any>(null)
   
-  const fetchCounts = React.useCallback(() => 
+  const fetchCounts = useCallback(() => 
     {     
       httpGetRequest(countsApi,{...headers, "Authorization": value})
         .then((response : AxiosResponse) =>  {
@@ -49,7 +52,7 @@ const HomeContent = () => {
           setCounts(null)
       })
     },[])
-  React.useEffect(()=>
+  useEffect(()=>
   {
     fetchCounts()
   },[])
@@ -57,7 +60,7 @@ const HomeContent = () => {
     <Grid container direction="row" justifyContent={"center"} padding={0} margin={0} height={'100%'} sx={{background: "gray"}}>
       <Grid item xs={12} sm={12} sx={{background:"#F5B041", margin: 0, padding: '3%'}}>
           <Typography variant="h4" align="center" color="white" marginBottom={2} sx={{fontWeight: 500}}>
-            Yelahanka Kutch Kadava Patidar Samaj
+           Kutch Kadava Patidar Samaj Yelahanka 
           </Typography>
           <Grid sx={{flexGrow: 1, height: 'auto'}} container direction="row" justifyContent={"center"} alignItems="center" spacing={1} overflow={'auto'} paddingBottom={0}>
             <Grid key={'firm-key'} item>
@@ -216,7 +219,7 @@ const HomeContent = () => {
       <Box sx={{background:'gray', height: '47vh'}}>
         <Box sx={{m: 10, border: '2px solid orange', borderRadius: 2, align: "center"}}>
           <Typography color="white" variant="h6" align="center" p={2}>
-            current statistics
+            Current statistics
           </Typography>
           <Divider color="orange" />
           <Stack direction={'row'} justifyContent={'space-around'} display={'flex'} p={5} spacing={1}>

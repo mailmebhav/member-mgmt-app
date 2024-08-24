@@ -164,7 +164,7 @@ const MemberEditComponent = (props: any): any => {
                   {...params}
                   error={Boolean(formik.touched.firmId && formik.errors.firmId)}
                   fullWidth
-                  label="firm name"
+                  label="Firm name"
                   name="firm name"
                   variant="outlined"
               />
@@ -179,7 +179,7 @@ const MemberEditComponent = (props: any): any => {
           size="small"
           id="ksmnId"
           name="ksmnId"
-          label="ksmnId"
+          label="KSMN Id"
           value={formik.values.ksmnId}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -193,7 +193,7 @@ const MemberEditComponent = (props: any): any => {
           size="small"
           id="yskId"
           name="yskId"
-          label="yskId"
+          label="YSK Id"
           value={formik.values.yskId}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -317,7 +317,7 @@ const MemberEditComponent = (props: any): any => {
             size="small"
             id="contact"
             name="contact"
-            label="contact"
+            label="Contact"
             type='number'
             value={formik.values.contact}
             onChange={formik.handleChange}
@@ -332,7 +332,7 @@ const MemberEditComponent = (props: any): any => {
             size="small"
             id="contact2"
             name="contact2"
-            label="contact 2"
+            label="Contact 2"
             type='number'
             value={formik.values.contact2}
             onChange={formik.handleChange}

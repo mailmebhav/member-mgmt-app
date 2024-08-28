@@ -2,10 +2,13 @@
   "name": "member-mgmt-app",
   "version": "0.1.0",
   "private": true,
+  "main": "electron.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "electron": "electron .",
+    "package": "electron-packager . member-mgmt-app --platform=win32 --arch=x64 --out=dist --overwrite",
     "lint": "next lint",
     "format": "prettier --write \"**/*.{ts,tsx,md,mdx,css,scss}\""
   },
@@ -34,6 +37,7 @@
     "react-hook-form": "^7.51.5",
     "sass": "^1.77.8",
     "sqlite3": "^5.1.7",
+    "tree-kill": "^1.2.2",
     "yup": "^1.4.0",
     "zod": "^3.23.8"
   },
@@ -42,6 +46,8 @@
     "@types/react": "^18.3.4",
     "@types/react-dom": "^18",
     "devtools": "^8.36.1",
+    "electron": "^32.0.1",
+    "electron-packager": "^17.1.2",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.3",
     "eslint-config-prettier": "^9.1.0",

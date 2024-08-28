@@ -13,8 +13,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
   if (!validUser) {
     return unauthorizedResponse();
   }
-
-  const firms = await prisma.member.findMany({ include: { firm: true } });
+  let firms
+  try {
+  firms = await prisma.member.findMany({ include: { firm: true } });
+  } catch(err) {
+    console.log(err);
+  }
   return NextResponse.json(createApiResponseObject("OK", "", firms));
 }
 

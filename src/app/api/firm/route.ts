@@ -22,7 +22,6 @@ export async function POST(req: NextRequest) {
   // Handle POST request logic
   let authToken = req.headers.get("Authorization");
   let validUser = await validateToken(authToken);
-  console.log(validUser)
   if (!validUser) {
     return unauthorizedResponse();
   }

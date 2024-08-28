@@ -29,7 +29,6 @@ export async function POST(req: NextRequest) {
       apiResponse.status = "OK";
       let newToken = createToken(userName);
       authData.token = token?.toString();
-      console.log(reqData.userName?.toString());
       let updatedData = await prisma.adminAuth.update({
         where: { userName: createHash(userName) },
         data: {

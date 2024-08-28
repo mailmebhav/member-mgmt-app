@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,49 +10,49 @@ datasource db {
 model AdminAuth {
   userName String   @id
   password String
-  token    String
+  token    String?
   expires  DateTime
 }
 
 model Firm {
   firmId   Int      @id @default(autoincrement())
   firmName String
-  area     String
-  pincode  Int
+  area     String?
+  pincode  Int?
   member   Member[]
 }
 
 model Member {
   memberId    Int             @id @default(autoincrement())
-  firm        Firm            @relation(fields: [firmId], references: [firmId], onDelete: Cascade)
   firmId      Int
-  ksmnId      String
-  yskId       String
-  familyId    String
+  ksmnId      String?
+  yskId       String?
+  familyId    String?
   memberName  String
   fatherName  String
   nokh        String
   dob         DateTime
   gender      String
-  bloodGroup  String
-  contact     String
-  contact2    String
-  kutchNative String
+  bloodGroup  String?
+  contact     String?
+  contact2    String?
+  kutchNative String?
+  firm        Firm            @relation(fields: [firmId], references: [firmId], onDelete: Cascade)
   payment     PaymentDetail[]
 }
 
 model PaymentDetail {
-  paymentId     Int    @id @default(autoincrement())
-  paymentMode   String
-  paymentFor    String
-  amount        Float
-  transactionId String
-  receiptNumber String
-  member        Member @relation(fields: [memberId], references: [memberId])
+  paymentId     Int     @id @default(autoincrement())
+  paymentMode   String?
+  paymentFor    String?
+  amount        Float?
+  transactionId String?
+  receiptNumber String?
   memberId      Int
+  member        Member  @relation(fields: [memberId], references: [memberId])
 }
 
 model PaymentType {
-  paymentTypeId Int @id @default(autoincrement())
-  paymentFor  String
+  paymentTypeId Int    @id @default(autoincrement())
+  paymentFor    String
 }

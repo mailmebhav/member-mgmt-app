@@ -12,7 +12,6 @@ import useLocalStorage from "@/hooks/useLocalStorage"
 import { useRouter } from 'next/navigation'; 
 const FirmEditComponent = (props: any) => {
     const mytheme = useTheme()
-console.log(props.data)
     const router = useRouter()
     const [buttonLoading, setButtonLoading] = React.useState(false)
     const [verified, setVerified] = React.useState<VerifiedResponseType>(
@@ -40,7 +39,7 @@ console.log(props.data)
           status: false,
           message: ''
       })
-      
+      console.log('hello')
       const requestPayload = {
           firmId: props.data.data.firmId,
           firmName: values.firmName,

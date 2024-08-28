@@ -1,6 +1,6 @@
  
 const FirmInitialValues = {
-  firmname: '',
+  firmName: '',
   area: '',
   pincode: null,
 }

@@ -5,15 +5,13 @@ export const LoginValidationSchema = yup.object({
   password: yup.string().required("password is required"),
 })
 export const FirmValidationSchema = yup.object({
-    firmname: yup
+    firmName: yup
       .string()
       .required('firm name is required'),
     area: yup
-      .string()
-      .required('area is required'),
+      .string(),
     pincode: yup
-      .number()
-      .required('pincode is required'),
+      .number(),
   });
 
   export const MemberValidationSchema = yup.object({

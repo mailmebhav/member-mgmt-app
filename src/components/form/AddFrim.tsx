@@ -45,7 +45,7 @@ const AddFirm = (props: RefreshPropsType)  => {
         })
         
         const requestPayload = {
-            firmName: values.firmname,
+            firmName: values.firmName,
             area: values.area,
             pincode: values.pincode,
           }
@@ -115,14 +115,14 @@ const AddFirm = (props: RefreshPropsType)  => {
           }}
           fullWidth
           size="small"
-          id="firmname"
-          name="firmname"
+          id="firmName"
+          name="firmName"
           label="Firm name"
-          value={formik.values.firmname}
+          value={formik.values.firmName}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          error={formik.touched.firmname && Boolean(formik.errors.firmname)}
-          helperText={formik.touched.firmname && formik.errors.firmname}
+          error={formik.touched.firmName && Boolean(formik.errors.firmName)}
+          helperText={formik.touched.firmName && formik.errors.firmName}
         />
         <TextField
                   sx={{

@@ -25,44 +25,50 @@ import { getAge } from '@/utils/dateutils'
 ModuleRegistry.registerModules([ ClientSideRowModelModule ]);
 
 function dateToAgeFormatter(params: ValueGetterParams){
-  return getAge(params.data.dob)
+  return getAge(params.data.dob) +" yrs"
 }
 function firmNameFormatter( params: ValueGetterParams){
-  return params.data.firm.firmName + ", " +params.data.firm.area
+  return params.data.firm.firmName
+}
+function genderGetter( params: ValueGetterParams){
+  return params.data.gender === ( 'M' || 'm' ) ? 'Male' : 'Female'
 }
 const FieldsWithUpdate = [
-  { field: "firmName", valueGetter: firmNameFormatter},
-  { field: "ksmnId" },
-  { field: "yskId" },
-  { field: "familyId" },
+  { field: "edit", cellRenderer: MemberEditRenderer,
+    filter: false, floatingFilter: false,  },
+  { field: "firmName", valueGetter: firmNameFormatter
+     , minWidth: 250, width: 300
+  },
   { field: "memberName" },
   { field: "fatherName" },
   { field: "nokh" },
   { headerName: "age", valueGetter: dateToAgeFormatter},
-  { field: "gender" },
+  { field: "gender" , valueGetter: genderGetter},
   { field: "bloodGroup" },
   { field: "contact" },
   { field: "contact2" },
   { field: "kutchNative" },
-  { field: "edit", cellRenderer: MemberEditRenderer,
-    filter: false, floatingFilter: false,  }
+  { field: "ksmnId" },
+  { field: "yskId" },
+  { field: "familyId" },
 ]
 const FieldWithoutUpdate = 
 [
   // { field: "firm", valueGetter: (p: { firm: { firmName: string; area: string; }; }) => p.firm.firmName + ',' + p.firm.area  },
-  { field: "firmName", valueGetter: firmNameFormatter},
-  { field: "ksmnId" },
-  { field: "yskId" },
-  { field: "familyId" },
+  { field: "firmName", valueGetter: firmNameFormatter,  minWidth: 250, width: 300  },
   { field: "memberName" },
   { field: "fatherName" },
   { field: "nokh" },
   { headerName: "age", valueGetter: dateToAgeFormatter},
-  { field: "gender" },
+  { field: "gender" , valueGetter: genderGetter},
   { field: "bloodGroup" },
   { field: "contact" },
   { field: "contact2" },
   { field: "kutchNative" },
+  { field: "ksmnId" },
+  { field: "yskId" },
+  { field: "familyId" },
+
 ]
 
 
@@ -130,10 +136,10 @@ const getRowId = useCallback((params: GetRowIdParams) => params.data.memberId,[]
   return (
     <> 
     <Typography align="right" variant="body2">
-    <IconButton onClick={()=>fetchMembersData()} sx={{ color: 'gray' }}><RefreshIcon /></IconButton>
-    <Checkbox checked={checked} onChange={handleChange} sx={{ color: 'gray' }} size={'small'} icon={<EditOutlined />} checkedIcon={<Edit />} />
+    <IconButton onClick={()=>fetchMembersData()} sx={{ color: '#A9A9A9' }}><RefreshIcon /></IconButton>
+    <Checkbox checked={checked} onChange={handleChange} sx={{ color: '#A9A9A9	' }} size={'small'} icon={<EditOutlined />} checkedIcon={<Edit />} />
     </Typography>
-    <div className={"ag-theme-material"} style={{ width: '100%', height: 600 }}>
+    <div className={"ag-theme-material"} style={{ width: '100%', height: 600, fontWeight: 500 }}>
         <AgGridReact<MemberData>
           ref={gridRef}
           rowData={rowData}

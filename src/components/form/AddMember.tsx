@@ -148,7 +148,7 @@ export default function AddMember(props: RefreshPropsType) {
         <Autocomplete
           id="contact-autocomplete"
           options={firms}
-          getOptionLabel={(firm: any) => firm.firmName+","+firm.area }
+          getOptionLabel={(firm: any) => firm.firmName }
           onChange={(e, value) => 
             {
               formik.setFieldValue("firmName", value.firmName || "")
@@ -169,51 +169,7 @@ export default function AddMember(props: RefreshPropsType) {
           />
     )}
 />
-      <TextField
-                sx={{
-                  mt: 2
-                }}
-        fullWidth
-        size="small"
-        id="ksmnId"
-        name="ksmnId"
-        label="KSMN Id"
-        value={formik.values.ksmnId}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={formik.touched.ksmnId && Boolean(formik.errors.ksmnId)}
-        helperText={formik.touched.ksmnId && formik.errors.ksmnId}
-      />
-      <TextField
-                sx={{
-                  mt: 2
-                }}
-        fullWidth
-        size="small"
-        id="yskId"
-        name="yskId"
-        label="YSK Id"
-        value={formik.values.yskId}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={formik.touched.yskId && Boolean(formik.errors.yskId)}
-        helperText={formik.touched.yskId && formik.errors.yskId}
-      />
-      <TextField
-          sx={{
-            mt: 2
-          }}
-        fullWidth
-        size="small"
-        id="familyId"
-        name="familyId"
-        label="Family Id"
-        value={formik.values.familyId}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={formik.touched.familyId && Boolean(formik.errors.familyId)}
-        helperText={formik.touched.familyId && formik.errors.familyId}
-      />
+      
       <TextField
           sx={{
             mt: 2
@@ -363,7 +319,51 @@ export default function AddMember(props: RefreshPropsType) {
         error={formik.touched.kutchNative && Boolean(formik.errors.kutchNative)}
         helperText={formik.touched.kutchNative && formik.errors.kutchNative}
       />
-      
+      <TextField
+                sx={{
+                  mt: 2
+                }}
+        fullWidth
+        size="small"
+        id="ksmnId"
+        name="ksmnId"
+        label="KSMN Id"
+        value={formik.values.ksmnId}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        error={formik.touched.ksmnId && Boolean(formik.errors.ksmnId)}
+        helperText={formik.touched.ksmnId && formik.errors.ksmnId}
+      />
+      <TextField
+                sx={{
+                  mt: 2
+                }}
+        fullWidth
+        size="small"
+        id="yskId"
+        name="yskId"
+        label="YSK Id"
+        value={formik.values.yskId}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        error={formik.touched.yskId && Boolean(formik.errors.yskId)}
+        helperText={formik.touched.yskId && formik.errors.yskId}
+      />
+      <TextField
+          sx={{
+            mt: 2
+          }}
+        fullWidth
+        size="small"
+        id="familyId"
+        name="familyId"
+        label="Family Id"
+        value={formik.values.familyId}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        error={formik.touched.familyId && Boolean(formik.errors.familyId)}
+        helperText={formik.touched.familyId && formik.errors.familyId}
+      />
       {/* <TextField
                 sx={{
                   mt: 2

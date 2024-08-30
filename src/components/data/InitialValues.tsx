@@ -2,7 +2,7 @@
 const FirmInitialValues = {
   firmName: '',
   area: '',
-  pincode: null,
+  pincode: 0,
 }
 const MemberInitialValues = {
   firmName: '',

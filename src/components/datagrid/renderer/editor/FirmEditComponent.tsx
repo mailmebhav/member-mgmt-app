@@ -44,7 +44,7 @@ const FirmEditComponent = (props: any) => {
           firmId: props.data.data.firmId,
           firmName: values.firmName,
           area: values.area,
-          pincode: values.pincode,
+          pincode: values.pincode === ''? 0 : values.pincode,
         }
   
      httpPutRequest(firmsAPI, requestPayload, {...headers, "Authorization": token})
@@ -131,7 +131,7 @@ const FirmEditComponent = (props: any) => {
       name="pincode"
       label="Pincode"
       type='number'
-      value={formik.values.pincode}
+      value={formik.values.pincode !== 0 ? formik.values.pincode : ''}
       onChange={formik.handleChange}
       onBlur={formik.handleBlur}
       error={formik.touched.pincode && Boolean(formik.errors.pincode)}

@@ -18,7 +18,7 @@ const MemberContent = () => {
       setRefreshPage(!refreshPage)
     },[])
     return (
-    <Box sx={{flexGrow: 1, height: '82vh' }}>
+    <Box sx={{flexGrow: 1, height: '82vh'}}>
         <Grid container direction="row" justifyContent={'center'} >
         <Grid item xs={12} sx={{ m: 1, p: 1, borderRadius: 2, border: '1px solid gray', paddingLeft: 3 }}>
                 <Typography variant="h3" align="center" component="span" color={mytheme.palette.primary.main}>

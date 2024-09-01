@@ -10,12 +10,13 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/navigation"
 import HomeIcon from "@mui/icons-material/Home"
+import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 const Header = () => {
   const mytheme = useTheme()
   const router = useRouter()
   return (
     <>
-      <Box sx={{ flexGrow: 1, height: 'auto', position: "static" }}>
+      <Box sx={{ flexGrow: 1, height: 'auto', position: "static", overflow: 'hidden', }}>
         <AppBar position="static" sx={{ background: "smokewhite" }}>
           <Toolbar>
             <Box
@@ -47,6 +48,9 @@ const Header = () => {
             >
               Member Manager
             </Typography>
+            <IconButton sx={{float: 'right', color: 'orange'}} onClick={()=>router.push('/stats')}>
+              <GroupOutlinedIcon />
+            </IconButton>
             <IconButton sx={{float: 'right', color: 'orange'}} onClick={()=>router.push('/')}>
               <HomeIcon />
             </IconButton>

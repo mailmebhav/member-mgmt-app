@@ -57,7 +57,7 @@ const HomeContent = () => {
     fetchCounts()
   },[])
   return (
-    <Grid container direction="row" justifyContent={"center"} padding={0} margin={0} height={'100%'} sx={{background: "gray"}}>
+    <Grid container direction="row" justifyContent={"center"} padding={0} margin={0} height={'95%'} sx={{background: "gray", overflowY: "hidden" }}>
       <Grid item xs={12} sm={12} sx={{background:"#F5B041", margin: 0, padding: '3%'}}>
           <Typography variant="h4" align="center" color="white" marginBottom={2} sx={{fontWeight: 500}}>
            Kutch Kadava Patidar Samaj Yelahanka 
@@ -216,8 +216,8 @@ const HomeContent = () => {
           </Grid>
       </Grid>
       <Grid item xs={12} sm={12}>
-      <Box sx={{background:'gray', height: '47vh'}}>
-        <Box sx={{m: 10, border: '2px solid orange', borderRadius: 2, align: "center"}}>
+      <Box sx={{background:'gray', height: 'auto'}}>
+        <Box sx={{m: 5, border: '2px solid orange', borderRadius: 2, align: "center"}}>
           <Typography color="white" variant="h6" align="center" p={2}>
             Current statistics
           </Typography>

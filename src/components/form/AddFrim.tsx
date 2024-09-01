@@ -149,7 +149,7 @@ const AddFirm = (props: RefreshPropsType)  => {
           name="pincode"
           label="Pincode"
           type='number'
-          value={formik.values.pincode}
+          value={formik.values.pincode === 0 ? '' : formik.values.pincode}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={formik.touched.pincode && Boolean(formik.errors.pincode)}

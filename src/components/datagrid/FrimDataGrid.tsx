@@ -6,6 +6,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {   ColDef,
   GetRowIdParams,
   ModuleRegistry,
+  ValueGetterParams,
 } from '@ag-grid-community/core';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 import { AxiosResponse } from "axios";
@@ -24,14 +25,15 @@ import Edit from '@mui/icons-material/Edit';
 import RefreshIcon from '@mui/icons-material/Refresh'
 
 ModuleRegistry.registerModules([ ClientSideRowModelModule ]);
-
+function pincodeGetter( params: ValueGetterParams){
+  return params.data.pincode !== 0 ? params.data.pincode : ''
+}
 const firmColDefWithEdit = [
   { field: "firmName", flex: 1,
   },
   { field: "area", flex: 1,
   },
-  { field: "pincode", flex: 1,
-  },
+  { field: "pincode", flex: 1,  valueGetter: pincodeGetter },
   { field: "update", cellRenderer: FirmEditButtonRenderer , filter: false, floatingFilter: false , width: 100 }
 ]
 const firmColDefWithoutEdit = [
@@ -39,8 +41,7 @@ const firmColDefWithoutEdit = [
   },
   { field: "area", flex: 1,
   },
-  { field: "pincode", flex: 1,
-  }
+  { field: "pincode", flex: 1,  valueGetter: pincodeGetter }
 ]
 
   const FirmDataGrid = (props: ReloadDataProps) => {

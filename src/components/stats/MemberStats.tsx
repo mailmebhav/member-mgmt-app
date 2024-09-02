@@ -1,9 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
-  Grid,
   Box,
-  Stack,
   Typography,
 } from "@mui/material"
 import Table from '@mui/material/Table';
@@ -13,70 +12,58 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useTheme } from "@mui/material"
+import { aggregatedCountByDobApi } from "../data/URLs";
+import { httpGetRequest } from '@/utils/httputils'
+import { headers } from '@/utils/header'
+import useLocalStorage from "@/hooks/useLocalStorage"
+import { AxiosResponse } from "axios";
+import { useRouter } from 'next/navigation'
+
 const MemberStats = () => 
 {
-    let data = 
-    [
-    {
-       "category": '<= 5 years',
-       "maleCount": 49,
-       "femaleCount": 41
-    },
-    {
-       "category": '>5  & <= 15 Yrs',
-       "maleCount": 74,
-       "femaleCount": 81
-    },
-    
-    {
-       "category": '> 15 & <= 30 Yrs',
-       "maleCount": 139,
-       "femaleCount": 120
-    },
-    {
-       "category": '> 31 & <= 47 Yrs',
-       "maleCount": 162,
-       "femaleCount": 151
-    },
-    {
-       "category": '> 47 & <=60 Yrs',
-       "maleCount": 79,
-       "femaleCount": 76
-    },
-    {
-       "category": ' > 60 Yrs',
-       "maleCount": 50,
-       "femaleCount": 53
-    }
-    ]
-    
-    let unifiedData = [
-        {
-            "category": 'BALAK',
-            "count": 90,
-            "percentage": "8%"
-        },
-        {
-            "category": 'KISHOR',
-            "count": 155,
-            "percentage": "14%"
-        },
-        {
-            "category": 'BALAK',
-            "count": 572,
-            "percentage": "53%"
-        },
-        {
-            "category": 'VADIL',
-            "count": 258,
-            "percentage": "24%"
-        }
-    ]
+  const router = useRouter()
+
+  const [value, ] = useLocalStorage("token")
+  const [aggregatedAgeCountByGender, setAggregatedAgeCountByGender] = useState<any>([])
+  const [consolidatedAgeData, setconsolidatedAgeData] = useState<any>([])
+
+  const fetchNokhsByCounts = useCallback(() => 
+    {     
+      httpGetRequest(aggregatedCountByDobApi,{...headers, "Authorization": value})
+        .then((response : AxiosResponse) =>  {
+          if(response.status === 200)
+          {
+            setAggregatedAgeCountByGender(response.data.data.category_gender)
+            setconsolidatedAgeData(response.data.data.consolidated)
+          }          
+          else
+          {
+            setAggregatedAgeCountByGender([])
+            setconsolidatedAgeData([])
+          }  
+      })
+      .catch(function (error: any) {
+        console.log(error)
+
+        if (error.response.status === 401)
+          {
+              router.push('/login')
+          }
+          setAggregatedAgeCountByGender([])
+            setconsolidatedAgeData([])
+      })
+    },[])
+  
+useEffect(()=> 
+{
+  fetchNokhsByCounts()
+},[])
+
     const mytheme = useTheme()
     const maleTotal = () => 
     {
         let male = 0
-        data.map((row) =>
+        aggregatedAgeCountByGender.map((row: any) =>
         {
             male = male + row.maleCount
         })
@@ -85,7 +72,7 @@ const MemberStats = () =>
     const femaleTotal = () => 
         {
             let female = 0
-            data.map((row) =>
+            aggregatedAgeCountByGender.map((row: any) =>
             {
                 female = female + row.femaleCount
             })
@@ -94,7 +81,7 @@ const MemberStats = () =>
         const totalCount = () => 
             {
                 let total = 0
-                data.map((row) =>
+                aggregatedAgeCountByGender.map((row: any) =>
                 {
                     total = total + row.maleCount + row.femaleCount
                 })
@@ -113,7 +100,7 @@ const MemberStats = () =>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
+          {aggregatedAgeCountByGender.map((row:any) => (
             <TableRow
               key={row.category}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -152,7 +139,7 @@ const MemberStats = () =>
           </TableRow>
         </TableHead>
         <TableBody>
-          {unifiedData.map((row) => (
+          {consolidatedAgeData.map((row: any) => (
             <TableRow
               key={row.category}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

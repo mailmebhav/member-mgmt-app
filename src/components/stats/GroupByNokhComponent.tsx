@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Grid,
   Box,
@@ -14,168 +15,55 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useTheme } from "@mui/material"
+import { countsByNokhApi } from '../data/URLs';
+import { httpGetRequest } from '@/utils/httputils'
+import { headers } from '@/utils/header'
+import useLocalStorage from "@/hooks/useLocalStorage"
+import { AxiosResponse } from "axios";
+import { useRouter } from 'next/navigation'
+
+
 const GroupByNokhComponent = () => 
 {
-    let data = [
-        {
-          "nokh": "BATHANI",
-          "count": 13
-        },
-        {
-          "nokh": "BHAGAT",
-          "count": 69
-        },
-        {
-          "nokh": "BHANJIYANI",
-          "count": 8
-        },
-        {
-          "nokh": "BHAVANI",
-          "count": 8
-        },
-        {
-          "nokh": "CHHABHAIYA",
-          "count": 71
-        },
-        {
-          "nokh": "DADGA",
-          "count": 4
-        },
-        {
-          "nokh": "DAYANI",
-          "count": 11
-        },
-        {
-          "nokh": "DHANANI",
-          "count": 37
-        },
-        {
-          "nokh": "DHOLU",
-          "count": 45
-        },
-        {
-          "nokh": "DIWANI",
-          "count": 79
-        },
-        {
-          "nokh": "HALPANI",
-          "count": 10
-        },
-        {
-          "nokh": "JABUVANI",
-          "count": 1
-        },
-        {
-          "nokh": "KALARIYA",
-          "count": 5
-        },
-        {
-          "nokh": "KESHRANI",
-          "count": 24
-        },
-        {
-          "nokh": "KHETANI",
-          "count": 19
-        },
-        {
-          "nokh": "LIMBANI",
-          "count": 99
-        },
-        {
-          "nokh": "MAKANI",
-          "count": 4
-        },
-        {
-          "nokh": "MANANI",
-          "count": 22
-        },
-        {
-          "nokh": "MAVANI",
-          "count": 4
-        },
-        {
-          "nokh": "MEGHANI",
-          "count": 22
-        },
-        {
-          "nokh": "NAKRANI",
-          "count": 78
-        },
-        {
-          "nokh": "NARSINGANI",
-          "count": 9
-        },
-        {
-          "nokh": "NATHANI",
-          "count": 46
-        },
-        {
-          "nokh": "NAYANI",
-          "count": 16
-        },
-        {
-          "nokh": "PANCHANI",
-          "count": 67
-        },
-        {
-          "nokh": "POKAR",
-          "count": 25
-        },
-        {
-          "nokh": "POKAR(GANGANI)",
-          "count": 4
-        },
-        {
-          "nokh": "RAJANI",
-          "count": 5
-        },
-        {
-          "nokh": "RAMANI",
-          "count": 41
-        },
-        {
-          "nokh": "RUDANI",
-          "count": 14
-        },
-        {
-          "nokh": "SANKHALA",
-          "count": 8
-        },
-        {
-          "nokh": "SENGHANI",
-          "count": 11
-        },
-        {
-          "nokh": "SOMJIYANI",
-          "count": 11
-        },
-        {
-          "nokh": "SURANI",
-          "count": 78
-        },
-        {
-          "nokh": "TEJANI",
-          "count": 21
-        },
-        {
-          "nokh": "VALANI",
-          "count": 14
-        },
-        {
-          "nokh": "VELANI",
-          "count": 32
-        },
-        {
-          "nokh": "WADIYA",
-          "count": 1
-        }
-      ]
+      const router = useRouter()
+
+      const [value, ] = useLocalStorage("token")
+      const [nokhData, setNokhData] = useState<any>([])
+      const fetchNokhsByCounts = useCallback(() => 
+        {     
+          httpGetRequest(countsByNokhApi,{...headers, "Authorization": value})
+            .then((response : AxiosResponse) =>  {
+              if(response.status === 200)
+              {
+                setNokhData(response.data.data)
+              }          
+              else
+              {
+                setNokhData(null)
+              }  
+          })
+          .catch(function (error: any) {
+            console.log(error)
+    
+            if (error.response.status === 401)
+              {
+                  router.push('/login')
+              }
+              setNokhData(null)
+          })
+        },[])
+      
+    useEffect(()=> 
+    {
+      fetchNokhsByCounts()
+    },[])
+
     const mytheme = useTheme()
     const summation = () => {
         let sum = 0
-        data.map((row) => 
+        nokhData && nokhData.map((row: any): any => 
         {
-            sum+=row.count
+            sum+=row._count
         })
         return sum
     }
@@ -190,7 +78,7 @@ const GroupByNokhComponent = () =>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
+          {nokhData && nokhData.map((row: any): any => (
             <TableRow
               key={row.nokh}
               sx={{ '&:last-child td, &:last-child th': { border: 0 }, p:0,m:0 }}
@@ -198,7 +86,7 @@ const GroupByNokhComponent = () =>
               <TableCell component="th" scope="row" sx={{ fontSize: 11}}>
                 {row.nokh}
               </TableCell>
-              <TableCell align="right">{row.count}</TableCell>
+              <TableCell align="right">{row._count}</TableCell>
              
             </TableRow>
           ))}

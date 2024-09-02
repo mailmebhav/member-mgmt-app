@@ -1,4 +1,3 @@
-import { League_Script } from "next/font/google"
 
 const getAggregateByAgeAndGender = (listData: any): any => {
     let m_lessThanEqual_5 = 0, m_lessThanEqual_15 = 0, m_lessThanEqual_30 =0 , m_lessThanEqual_47 = 0, m_lessThanEqual_60 =0, m_moreThan_60 =0

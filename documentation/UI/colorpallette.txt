@@ -1,0 +1,4 @@
+red  =  C96868
+yellow  = FADFA1
+cream  =  FFF4EA
+peak   =  7EACB5

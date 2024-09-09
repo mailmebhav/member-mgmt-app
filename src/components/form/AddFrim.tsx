@@ -105,7 +105,7 @@ const AddFirm = (props: RefreshPropsType)  => {
         open={addfirmopen}
         onClose={handleAddFrimClose}
       >
-        <DialogTitle>Add New Firm</DialogTitle>
+        <DialogTitle sx={{color: '#C96868', textAlign: 'center'}}>Add New Firm</DialogTitle>
         <Box sx ={{m: 2}}>
         <form onSubmit={formik.handleSubmit}>
 

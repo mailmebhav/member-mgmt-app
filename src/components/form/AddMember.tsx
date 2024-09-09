@@ -142,8 +142,8 @@ export default function AddMember(props: RefreshPropsType) {
       open={addMemberopen}
       onClose={handleAddMemberClose}
     >
-      <DialogTitle>Add New Member</DialogTitle>
-      <Box sx ={{m: 2}}>
+        <DialogTitle sx={{color: '#C96868', textAlign: 'center'}}>Add New Member</DialogTitle>
+        <Box sx ={{m: 2}}>
       <form onSubmit={formik.handleSubmit}>
         <Autocomplete
           id="contact-autocomplete"

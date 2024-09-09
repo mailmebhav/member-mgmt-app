@@ -90,7 +90,7 @@ useEffect(()=>
     return (
         <Box sx={{flexGrow: 1 }}>
     <TableContainer >
-    <Table sx={{ width: 500,ml: 10,mt: 5, background: 'gray' }} aria-label="simple table" size="small">
+    <Table sx={{ width: 500,ml: 10,mt: 5, background: '#FADFA1' }} aria-label="simple table" size="small">
         <TableHead>
           <TableRow>
             <TableCell>Category</TableCell>
@@ -105,12 +105,12 @@ useEffect(()=>
               key={row.category}
               sx={{ '&:last-child td, &:last-child th': { border: 0 }}}
             >
-              <TableCell component="th" scope="row"  sx={{ color: 'white', fontWeight: 'bold' }}>
+              <TableCell component="th" scope="row"  sx={{ color: '#7EACB5', fontWeight: 'bold' }}>
                 {row.category}
               </TableCell>
-              <TableCell align="right" sx={{ color: 'white', fontSize: 18 }}>{row.maleCount}</TableCell>
-              <TableCell align="right" sx={{ color: 'white', fontSize: 18 }}>{row.femaleCount}</TableCell>
-              <TableCell align="right" sx={{ color: 'orange', fontSize: 18 }}>{row.femaleCount + row.maleCount}</TableCell>
+              <TableCell align="right" sx={{ color: '#C96868', fontSize: 18 }}>{row.maleCount}</TableCell>
+              <TableCell align="right" sx={{ color: '#C96868', fontSize: 18 }}>{row.femaleCount}</TableCell>
+              <TableCell align="right" sx={{ color: '#C96868', fontSize: 18 }}>{row.femaleCount + row.maleCount}</TableCell>
 
             </TableRow>
           ))}
@@ -130,7 +130,7 @@ useEffect(()=>
       </Table>
     </TableContainer>
     <TableContainer>
-      <Table sx={{ width: 500,ml: 10,mt: 5, backgroundColor:'gray' }} aria-label="simple table" size="small">
+      <Table sx={{ width: 500,ml: 10,mt: 5, backgroundColor:'#FADFA1' }} aria-label="simple table" size="small">
         <TableHead>
           <TableRow>
             <TableCell>Category</TableCell>
@@ -144,11 +144,11 @@ useEffect(()=>
               key={row.category}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row" sx={{ color: 'white', fontSize: 17}}>
+              <TableCell component="th" scope="row" sx={{ color: '#7EACB5', fontSize: 17}}>
                 {row.category}
               </TableCell>
-              <TableCell align="right" sx={{ color: 'white',fontSize: 17}}>{row.count}</TableCell>
-              <TableCell align="right" sx={{ color: 'orange',fontSize: 17}}>{row.percentage}</TableCell>
+              <TableCell align="right" sx={{ color: '#C96868',fontSize: 17}}>{row.count}</TableCell>
+              <TableCell align="right" sx={{ color: '#C96868',fontSize: 17}}>{row.percentage}</TableCell>
 
             </TableRow>
           ))}

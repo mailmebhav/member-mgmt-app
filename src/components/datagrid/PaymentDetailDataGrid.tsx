@@ -21,6 +21,8 @@ import EditOutlined from '@mui/icons-material/EditOutlined'
 import Edit from '@mui/icons-material/Edit'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import { PaymentEditRenderer } from './renderer/PaymentEditRenderer'
+import "./styles.css"
+
 ModuleRegistry.registerModules([ ClientSideRowModelModule ]);
 
 function memberNameGetter( params: ValueGetterParams){
@@ -126,6 +128,7 @@ const getRowId = useCallback((params: GetRowIdParams) => params.data.paymentId,[
           paginationPageSize={20}
           getRowId={getRowId}
           onGridReady={fetchPaymentDetailData}
+          alwaysShowHorizontalScroll={true}
         />
     </div>
 </>  )

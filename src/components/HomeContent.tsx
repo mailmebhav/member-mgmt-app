@@ -24,7 +24,6 @@ import { httpGetRequest } from '@/utils/httputils'
 import { AxiosResponse } from "axios";
 import { CountResponse } from "@/app/model/CountResponse";
 import { useCallback, useEffect, useState } from "react";
-
 const HomeContent = () => {
   const mytheme = useTheme()
   const router = useRouter()
@@ -57,9 +56,9 @@ const HomeContent = () => {
     fetchCounts()
   },[])
   return (
-    <Grid container direction="row" justifyContent={"center"} padding={0} margin={0} height={'95%'} sx={{background: "gray", overflowY: "hidden" }}>
-      <Grid item xs={12} sm={12} sx={{background:"#F5B041", margin: 0, padding: '3%'}}>
-          <Typography variant="h4" align="center" color="white" marginBottom={2} sx={{fontWeight: 500}}>
+    <Grid container direction="row" justifyContent={"center"} padding={0} margin={0} height={'98%'} sx={{background: "#FADFA1", overflowY: "hidden" }}>
+      <Grid item xs={12} sm={12} sx={{background:"#FADFA1", margin: 0, padding: '3%'}}>
+          <Typography variant="h4" align="center" color="#C96868" marginBottom={2} sx={{fontWeight: 500}}>
            Kutch Kadava Patidar Samaj Yelahanka 
           </Typography>
           <Grid sx={{flexGrow: 1, height: 'auto'}} container direction="row" justifyContent={"center"} alignItems="center" spacing={1} overflow={'auto'} paddingBottom={0}>
@@ -216,42 +215,42 @@ const HomeContent = () => {
           </Grid>
       </Grid>
       <Grid item xs={12} sm={12}>
-      <Box sx={{background:'gray', height: 'auto'}}>
-        <Box sx={{m: 5, border: '2px solid orange', borderRadius: 2, align: "center"}}>
+      <Box sx={{background:'#C96868', height: 'auto'}}>
+        <Box sx={{mt: 5, p: 1, align: "center"}}>
           <Typography color="white" variant="h6" align="center" p={2}>
             Current statistics
           </Typography>
-          <Divider color="orange" />
+          <Divider color="#FADFA1" />
           <Stack direction={'row'} justifyContent={'space-around'} display={'flex'} p={5} spacing={1}>
             <Stack>
-              <Typography color="white" variant="h6" align="center" sx={{border: '0.5px solid orange', p: 1, borderRadius: 2}}>
+              <Typography color="white" variant="h6" align="center" sx={{border: '1px solid #FADFA1', p: 1, borderRadius: 2}}>
                 Members
                 <Stack direction="row">
-              <Typography color="white" variant="h6" align="center" sx={{border: '0.5px solid orange', p: 1, borderRadius: 2, marginRight: 1}}>
-                    Male<span style={{borderLeft: '0.5px solid orange', marginLeft: 5, paddingLeft: 5, color:'orange', fontSize: 25, fontWeight: 'bold'}}>
+              <Typography color="white" variant="h6" align="center" sx={{border: '0.5px solid #FADFA1', p: 1, borderRadius: 2, marginRight: 1}}>
+                    Male<span style={{borderLeft: '0.5px solid orange', marginLeft: 5, paddingLeft: 5, color:'#FADFA1', fontSize: 25, fontWeight: 'bold'}}>
                     {counts && counts.maleMemberCount ? counts.maleMemberCount: 'NA'}
                     </span>
                     </Typography>
 
-              <Typography color="white" variant="h6" align="center" sx={{border: '0.5px solid orange', p: 1, borderRadius: 2, marginRight: 1}}>
-                    Female<span style={{borderLeft: '0.5px solid orange', marginLeft: 5, paddingLeft: 5, color:'orange', fontSize: 25, fontWeight: 'bold'}}>
+              <Typography color="white" variant="h6" align="center" sx={{border: '0.5px solid #FADFA1', p: 1, borderRadius: 2, marginRight: 1}}>
+                    Female<span style={{borderLeft: '0.5px solid orange', marginLeft: 5, paddingLeft: 5, color:'#FADFA1', fontSize: 25, fontWeight: 'bold'}}>
                     {counts && counts.femaleMemberCount ? counts.femaleMemberCount: 'NA'}
                     </span>
                     </Typography>
 
-              <Typography color="white" variant="h6" align="center" sx={{border: '0.5px solid orange', p: 1, borderRadius: 2, marginRight: 2}}>
-                    Total<span style={{borderLeft: '0.5px solid orange', marginLeft: 5, paddingLeft: 5, color:'orange', fontSize: 25, fontWeight: 'bold'}}>
+              <Typography color="white" variant="h6" align="center" sx={{border: '0.5px solid #FADFA1', p: 1, borderRadius: 2, marginRight: 2}}>
+                    Total<span style={{borderLeft: '0.5px solid orange', marginLeft: 5, paddingLeft: 5, color:'#FADFA1', fontSize: 25, fontWeight: 'bold'}}>
                     {counts && counts.memberCount ? counts.memberCount: 'NA'}
                     </span>
                     </Typography>
                 </Stack>
                 </Typography> 
             </Stack>
-            <Typography color="white" variant="h6" align="center" sx={{border: '0.5px solid orange', p: 1, borderRadius: 2}}>
+            <Typography color="white" variant="h6" align="center" sx={{border: '0.5px solid #FADFA1', p: 1, borderRadius: 2}}>
                 Firms
                 <Stack direction="row">
-              <Typography color="white" variant="h6" align="center" sx={{border: '0.5px solid orange', p: 1, borderRadius: 2, marginRight: 1}}>
-                    Total<span style={{borderLeft: '0.5px solid orange', marginLeft: 5, paddingLeft: 5, color:'orange', fontSize: 25, fontWeight: 'bold'}}>
+              <Typography color="white" variant="h6" align="center" sx={{border: '0.5px solid #FADFA1', p: 1, borderRadius: 2, marginRight: 1}}>
+                    Total<span style={{borderLeft: '0.5px solid orange', marginLeft: 5, paddingLeft: 5, color:'#FADFA1', fontSize: 25, fontWeight: 'bold'}}>
                       {counts && counts.firmCount ? counts.firmCount: 'NA'}
                     </span>
                     </Typography>

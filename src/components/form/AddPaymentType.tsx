@@ -136,7 +136,7 @@ React.useEffect(()=>
           open={addPaymentTypeOpen}
           onClose={handleClickAddPaymentTypeClose}
         >
-          <DialogTitle>Add New Payment Types</DialogTitle>
+                  <DialogTitle sx={{color: '#C96868', textAlign: 'center'}}>Add New Payment Types</DialogTitle>
           <Box sx ={{m: 2 }}>
           <form onSubmit={formik.handleSubmit}>
             <Box sx={{ border: '1px solid orange', borderRadius: 1, mb: 2, height: '20vh', overflow: 'scroll' }}>

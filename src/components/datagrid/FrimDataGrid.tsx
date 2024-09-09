@@ -23,6 +23,7 @@ import IconButton from '@mui/material/IconButton'
 import { Checkbox } from '@mui/material';
 import Edit from '@mui/icons-material/Edit';
 import RefreshIcon from '@mui/icons-material/Refresh'
+import "./styles.css"
 
 ModuleRegistry.registerModules([ ClientSideRowModelModule ]);
 function pincodeGetter( params: ValueGetterParams){
@@ -119,6 +120,7 @@ const firmColDefWithoutEdit = [
           pagination={true}
           paginationPageSize={20}
           getRowId={getRowId}
+          alwaysShowHorizontalScroll={true}
           onGridReady={fetchAPIRequest}
         />
       </div>

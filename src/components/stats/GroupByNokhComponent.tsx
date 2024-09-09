@@ -70,7 +70,7 @@ const GroupByNokhComponent = () =>
     return (
         <Box sx={{flexGrow: 1 }}>
              <TableContainer>
-      <Table sx={{ m: 1, width: 400, ml: 10, backgroundColor: 'gray' }} aria-label="simple table" size="small">
+      <Table sx={{ m: 1, width: 400, ml: 10, backgroundColor: '#FADFA1' }} aria-label="simple table" size="small">
         <TableHead>
           <TableRow>
             <TableCell>Nokh</TableCell>
@@ -83,10 +83,10 @@ const GroupByNokhComponent = () =>
               key={row.nokh}
               sx={{ '&:last-child td, &:last-child th': { border: 0 }, p:0,m:0 }}
             >
-              <TableCell component="th" scope="row" sx={{ fontWeight: 'bold', fontSize: 14, color: 'white' }}>
+              <TableCell component="th" scope="row" sx={{ fontWeight: 'bold', fontSize: 14, color: '#C96868' }}>
                 {row.nokh}
               </TableCell>
-              <TableCell align="right"sx={{fontWeight: 'bold', fontSize: 16, color: 'orange'}}>{row._count}</TableCell>
+              <TableCell align="right"sx={{fontWeight: 'bold', fontSize: 17, color: '#C96868'}}>{row._count}</TableCell>
             </TableRow>
           ))}
            <TableRow

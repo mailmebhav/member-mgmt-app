@@ -17,13 +17,13 @@ const Header = () => {
   return (
     <>
       <Box sx={{ flexGrow: 1, height: 'auto', position: "static", overflow: 'hidden', }}>
-        <AppBar position="static" sx={{ background: "smokewhite" }}>
+        <AppBar position="static" sx={{ background: "#C96868" }}>
           <Toolbar>
             <Box
               sx={{
                 width: 40,
                 height: 40,
-                border: "2px solid gray",
+                border: "2px solid #7EACB5",
                 borderRadius: 1,
               }}
               component="img"
@@ -41,17 +41,17 @@ const Header = () => {
                 flexGrow: 1,
                 cursor: 'pointer'
               }}
-              color={'orange'}
+              color={'white'}
               onClick={() => {
                 router.push('/')
               }}
             >
               Member Manager
             </Typography>
-            <IconButton sx={{float: 'right', color: 'orange'}} onClick={()=>router.push('/stats')}>
+            <IconButton sx={{float: 'right', color: '#FADFA1'}} onClick={()=>router.push('/stats')}>
               <GroupOutlinedIcon />
             </IconButton>
-            <IconButton sx={{float: 'right', color: 'orange'}} onClick={()=>router.push('/')}>
+            <IconButton sx={{float: 'right', color: '#FADFA1'}} onClick={()=>router.push('/')}>
               <HomeIcon />
             </IconButton>
           </Toolbar>

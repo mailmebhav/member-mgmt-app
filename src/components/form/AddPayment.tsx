@@ -166,7 +166,7 @@ const AddPayment = (props: RefreshPropsType)  => {
         open={addPaymentopen}
         onClose={handleAddPaymentClose}
       >
-        <DialogTitle>Add New Payment detail</DialogTitle>
+        <DialogTitle sx={{color: '#C96868', textAlign: 'center'}}>Add New Payment detail</DialogTitle>
         <Box sx ={{m: 2}}>
         <form onSubmit={formik.handleSubmit}>
 

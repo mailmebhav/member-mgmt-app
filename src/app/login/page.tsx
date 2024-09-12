@@ -8,6 +8,7 @@ import {
   TextField,
   useTheme,
   Alert,
+  Divider,
 } from "@mui/material";
 import React from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -83,15 +84,19 @@ const Page = () => {
           border: "0.5px solid lightgray",
           borderRadius: 2,
           padding: 8,
+          background: '#FADFA1',
           boxShadow: "rgba(17, 12, 46, 0.15) 0px 48px 100px 0px",
         }}
       >
-        
-        <Avatar sx={{ m: 1, bgcolor: `${mytheme.palette.primary.dark}` }}>
+         <Typography component="h3" variant="h5" sx={{fontWeight: 500, mb: 3}} color="#C96868">
+          Member manager
+        </Typography>
+        <Avatar sx={{ m: 1, bgcolor: "#C96868" }}>
           <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
+        </Avatar> 
+       
+        <Typography component="h3" variant="h6" color="#C96868">
+         Sign-in
         </Typography>
         <Box sx={{mt: 1}}>
         
@@ -134,8 +139,8 @@ const Page = () => {
             fullWidth
             sx={{
               mt: 2,
-              color: 'white',
-              background: `${mytheme.palette.primary.dark}`,
+              color: '#FFF4EA',
+              background: "#C96868",
             }}
       >
         Sign in

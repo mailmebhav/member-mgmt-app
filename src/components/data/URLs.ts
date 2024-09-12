@@ -7,3 +7,7 @@ export const membersAPI = 'http://localhost:3000/api/member'
 export const paymentTypeAPI = 'http://localhost:3000/api/paymenttype'
 
 export const countsApi = 'http://localhost:3000/api/count'
+
+export const countsByNokhApi = 'http://localhost:3000/api/count/nokh'
+
+export const aggregatedCountByDobApi = 'http://localhost:3000/api/count/dob'

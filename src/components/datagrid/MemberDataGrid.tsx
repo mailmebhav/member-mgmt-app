@@ -21,6 +21,7 @@ import EditOutlined from '@mui/icons-material/EditOutlined'
 import Edit from '@mui/icons-material/Edit'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import { getAge } from '@/utils/dateutils'
+import "./styles.css"
 
 ModuleRegistry.registerModules([ ClientSideRowModelModule ]);
 
@@ -149,6 +150,7 @@ const getRowId = useCallback((params: GetRowIdParams) => params.data.memberId,[]
           paginationPageSize={20}
           getRowId={getRowId}
           onGridReady={fetchMembersData}
+          alwaysShowHorizontalScroll={true}
         />
     </div>
 </>  )

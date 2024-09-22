@@ -32,7 +32,7 @@ function firmNameFormatter( params: ValueGetterParams){
   return params.data.firm.firmName
 }
 function genderGetter( params: ValueGetterParams){
-  return params.data.gender === ( 'M' || 'm' ) ? 'Male' : 'Female'
+  return (params.data.gender === 'M') || (params.data.gender === 'm' ) ? 'Male' : 'Female'
 }
 const FieldsWithUpdate = [
   { field: "edit", cellRenderer: MemberEditRenderer,

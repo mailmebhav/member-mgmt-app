@@ -56,3 +56,11 @@ model PaymentType {
   paymentTypeId Int    @id @default(autoincrement())
   paymentFor    String
 }
+
+model auditTrail {
+  transactionId     Int    @id @default(autoincrement())
+  requestType       String
+  requestUrl        String
+  payload           String
+  transactionTime   DateTime
+}

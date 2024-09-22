@@ -8,6 +8,8 @@ let mainWindow;
 let nextServer = null; // Initialize server as null to avoid reference errors
 
 const createWindow = () => {
+  console.log(window.screen.availWidth);
+  console.log(window.screen.availHeight);
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,

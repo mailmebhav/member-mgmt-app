@@ -3,6 +3,7 @@ import { createApiResponseObject, internalServerErrorResponse, unauthorizedRespo
 import { validateToken } from "@/utils/validationUtil";
 import { NextRequest, NextResponse } from "next/server";
 import { prismaClientSingleton } from "../../../../lib/prisma";
+import { insertAuditTrailTransaction } from "@/utils/auditTrailUtil";
 
 const prisma = prismaClientSingleton();
 
@@ -15,6 +16,14 @@ export async function GET(req: NextRequest, res: NextResponse) {
   }
 
   const firms = await prisma.firm.findMany();
+
+  try {
+    insertAuditTrailTransaction(req.method, req.url, "");
+  } catch (error) {
+    console.log("Error while inserting audit trail");
+    console.log(error);
+  }
+
   return NextResponse.json(createApiResponseObject("OK", "", firms));
 }
 
@@ -35,6 +44,14 @@ export async function POST(req: NextRequest) {
         pincode: reqData.pincode,
       },
     });
+
+    try {
+      insertAuditTrailTransaction(req.method, req.url, JSON.stringify(reqData));
+    } catch (error) {
+      console.log("Error while inserting audit trail");
+      console.log(error);
+    }
+
     return NextResponse.json(createApiResponseObject("OK", "", firmData), { status: 201 });
   } catch (error: any) {
     return internalServerErrorResponse(error?.message);
@@ -61,6 +78,13 @@ export async function PUT(req: NextRequest) {
       }
     });
 
+    try {
+      insertAuditTrailTransaction(req.method, req.url, JSON.stringify(firmData));
+    } catch (error) {
+      console.log("Error while inserting audit trail");
+      console.log(error);
+    }
+
     return NextResponse.json(createApiResponseObject("OK", "", updatedFirmData));
   } catch (error: any) {
     return internalServerErrorResponse(error?.message);
@@ -81,6 +105,13 @@ export async function DELETE(req: NextRequest) {
         firmId: firmData.firmId
       }
     });
+
+    try {
+      insertAuditTrailTransaction(req.method, req.url, JSON.stringify(firmData));
+    } catch (error) {
+      console.log("Error while inserting audit trail");
+      console.log(error);
+    }
 
     let response = " Firm ID: " + firmData.firmId + " Firm Name: " + firmData.firmName + " Deleted successfully";
     return NextResponse.json(createApiResponseObject("OK", "", response));

@@ -3,6 +3,7 @@ import { createApiResponseObject, internalServerErrorResponse, unauthorizedRespo
 import { validateToken } from "@/utils/validationUtil";
 import { NextRequest, NextResponse } from "next/server";
 import { prismaClientSingleton } from "../../../../lib/prisma";
+import { insertAuditTrailTransaction } from "@/utils/auditTrailUtil";
 
 const prisma = prismaClientSingleton();
 
@@ -19,6 +20,14 @@ export async function GET(req: NextRequest, res: NextResponse) {
   } catch(err) {
     console.log(err);
   }
+
+  try {
+    insertAuditTrailTransaction(req.method, req.url, "");
+  } catch (error) {
+    console.log("Error while inserting audit trail");
+    console.log(error);
+  }
+
   return NextResponse.json(createApiResponseObject("OK", "", firms));
 }
 
@@ -49,6 +58,14 @@ export async function POST(req: NextRequest) {
         kutchNative: reqData.kutchNative?.toString(),
       }, include: { firm: true },
     });
+
+    try {
+      insertAuditTrailTransaction(req.method, req.url, JSON.stringify(reqData));
+    } catch (error) {
+      console.log("Error while inserting audit trail");
+      console.log(error);
+    }
+
     return NextResponse.json(createApiResponseObject("OK", "", memberData), { status: 201 });
   } catch (error: any) {
     return internalServerErrorResponse(error?.message);
@@ -85,6 +102,13 @@ export async function PUT(req: NextRequest) {
       }, include: { firm: true }
     });
 
+    try {
+      insertAuditTrailTransaction(req.method, req.url, JSON.stringify(reqData));
+    } catch (error) {
+      console.log("Error while inserting audit trail");
+      console.log(error);
+    }
+
     return NextResponse.json(createApiResponseObject("OK", "", updatedMemberData));
   } catch (error: any) {
     return internalServerErrorResponse(error?.message);
@@ -105,6 +129,13 @@ export async function DELETE(req: NextRequest) {
       memberId: reqData.memberId
     }
   });
+
+  try {
+    insertAuditTrailTransaction(req.method, req.url, JSON.stringify(reqData));
+  } catch (error) {
+    console.log("Error while inserting audit trail");
+    console.log(error);
+  }
 
   let response = " Member ID: " + reqData.memberId + " Member Name: " + reqData.memberName + " Deleted successfully";
   return NextResponse.json(createApiResponseObject("OK", "", response));

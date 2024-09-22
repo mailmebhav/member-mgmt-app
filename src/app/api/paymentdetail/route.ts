@@ -4,6 +4,7 @@ import { createApiResponseObject, internalServerErrorResponse, unauthorizedRespo
 import { validateToken } from "@/utils/validationUtil";
 import { NextRequest, NextResponse } from "next/server";
 import { prismaClientSingleton } from "../../../../lib/prisma";
+import { insertAuditTrailTransaction } from "@/utils/auditTrailUtil";
 
 const prisma = prismaClientSingleton();
 
@@ -19,6 +20,14 @@ export async function GET(req: NextRequest, res: NextResponse) {
   let apiResponse = new ApiResponse();
   apiResponse.status = "OK";
   apiResponse.data = firms;
+
+  try {
+    insertAuditTrailTransaction(req.method, req.url, "");
+  } catch (error) {
+    console.log("Error while inserting audit trail");
+    console.log(error);
+  }
+
   return NextResponse.json(apiResponse);
 }
 
@@ -42,6 +51,14 @@ export async function POST(req: NextRequest) {
         memberId: reqData.memberId
       }, include: { member: true }
     });
+
+    try {
+      insertAuditTrailTransaction(req.method, req.url, JSON.stringify(reqData));
+    } catch (error) {
+      console.log("Error while inserting audit trail");
+      console.log(error);
+    }
+
     return NextResponse.json(createApiResponseObject("OK", "", paymentData), { status: 201 });
   } catch (error: any) {
     return internalServerErrorResponse(error?.message);
@@ -71,6 +88,13 @@ export async function PUT(req: NextRequest) {
       }, include: { member: true }
     });
 
+    try {
+      insertAuditTrailTransaction(req.method, req.url, JSON.stringify(reqData));
+    } catch (error) {
+      console.log("Error while inserting audit trail");
+      console.log(error);
+    }
+
     return NextResponse.json(createApiResponseObject("OK", "", updatedPaymentData));
   } catch (error: any) {
     return internalServerErrorResponse(error?.message);
@@ -92,6 +116,13 @@ export async function DELETE(req: NextRequest) {
         paymentId: reqData.paymentId
       }
     });
+
+    try {
+      insertAuditTrailTransaction(req.method, req.url, JSON.stringify(reqData));
+    } catch (error) {
+      console.log("Error while inserting audit trail");
+      console.log(error);
+    }
 
     return NextResponse.json(createApiResponseObject("OK", "", "Payment ID: " + reqData.paymentId + " Deleted successfully"));
   } catch (error: any) {

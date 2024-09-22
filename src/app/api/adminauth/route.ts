@@ -5,12 +5,21 @@ import { createApiResponseObject, internalServerErrorResponse } from "@/utils/re
 import { NextRequest, NextResponse } from "next/server";
 import { prismaClientSingleton } from "../../../../lib/prisma";
 import { createExpiryTime, createHash, createToken } from '../../../utils/hashutil';
+import { insertAuditTrailTransaction } from "@/utils/auditTrailUtil";
 
 const prisma = prismaClientSingleton();
 
 export async function GET(req: NextRequest, res: NextResponse) {
   // Handle GET request logic
   const adminAuths = await prisma.adminAuth.findMany();
+
+  try {
+    insertAuditTrailTransaction(req.method, req.url, "");
+  } catch (error) {
+    console.log("Error while inserting audit trail");
+    console.log(error);
+  }
+
   let apiResponse = new ApiResponse();
   apiResponse.status = "OK";
   apiResponse.data = adminAuths;
@@ -31,6 +40,14 @@ export async function POST(req: NextRequest) {
         expires: expires,
       },
     });
+
+    try {
+      insertAuditTrailTransaction(req.method, req.url, JSON.stringify(reqData));
+    } catch (error) {
+      console.log("Error while inserting audit trail");
+      console.log(error);
+    }
+
     return NextResponse.json(createApiResponseObject("OK", "", authData), { status: 201 });
   } catch (error: any) {
     return internalServerErrorResponse(error?.message);
@@ -62,6 +79,14 @@ export async function PUT(req: NextRequest) {
         expires: expires,
       },
     });
+
+    try {
+      insertAuditTrailTransaction(req.method, req.url, JSON.stringify(reqData));
+    } catch (error) {
+      console.log("Error while inserting audit trail");
+      console.log(error);
+    }
+
     return NextResponse.json(createApiResponseObject("OK", "", authData));
   } catch (error: any) {
     return internalServerErrorResponse(error?.message);
@@ -88,6 +113,14 @@ export async function DELETE(req: NextRequest) {
     const authData = await prisma.adminAuth.delete({
       where: { userName: fetchedData.userName }
     });
+
+    try {
+      insertAuditTrailTransaction(req.method, req.url, JSON.stringify(reqData));
+    } catch (error) {
+      console.log("Error while inserting audit trail");
+      console.log(error);
+    }
+    
     let response = reqData.userName + " deleted successfully";
     return NextResponse.json(createApiResponseObject("OK", "", response));
   } catch (error: any) {

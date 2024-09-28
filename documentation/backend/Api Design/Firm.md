@@ -17,19 +17,25 @@
               "firmId": 1,
               "firmName": "Narayan Saw Mill",
               "area": "Yelahanka",
-              "pincode": 560090
+              "pincode": 560090,
+              "firmType": null,
+              "activeFirm": true
           },
           {
               "firmId": 2,
               "firmName": "Velani Saw Mill",
               "area": "Yelahanka",
-              "pincode": 560090
+              "pincode": 560090,
+              "firmType": null,
+              "activeFirm": true
           },
           {
               "firmId": 3,
               "firmName": "JK Saw Mill",
               "area": "Yelahanka",
-              "pincode": 560090
+              "pincode": 560090,
+              "firmType": null,
+              "activeFirm": true
           }
       ]
     }
@@ -59,7 +65,9 @@
           "firmId": 11,
           "firmName": "JK Saw Mill",
           "area": "Yelahanka",
-          "pincode": 560090
+          "pincode": 560090,
+          "firmType": "Primary",
+          "activeFirm": true
       }
     }
     ```
@@ -89,7 +97,9 @@
           "firmId": 11,
           "firmName": "JK Saw Mill & Sons",
           "area": "Yelahanka",
-          "pincode": 560090
+          "pincode": 560090,
+          "firmType": "Primary",
+          "activeFirm": true
       }
     }
     ```

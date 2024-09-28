@@ -15,10 +15,14 @@ export async function GET(req: NextRequest, res: NextResponse) {
     return unauthorizedResponse();
   }
 
-  const firms = await prisma.firm.findMany();
+  const firms = await prisma.firm.findMany({
+    where: {
+      activeFirm: true
+    }
+  });
 
   try {
-    insertAuditTrailTransaction(req.method, req.url, "");
+    await insertAuditTrailTransaction(req.method, req.url, "");
   } catch (error) {
     console.log("Error while inserting audit trail");
     console.log(error);
@@ -42,11 +46,13 @@ export async function POST(req: NextRequest) {
         firmName: reqData.firmName.toString(),
         area: reqData.area.toString(),
         pincode: reqData.pincode,
+        firmType: reqData.firmType != null ? reqData.firmType.toString() : "Primary",
+        activeFirm: reqData.activeFirm != null ? reqData.activeFirm : true
       },
     });
 
     try {
-      insertAuditTrailTransaction(req.method, req.url, JSON.stringify(reqData));
+      await insertAuditTrailTransaction(req.method, req.url, JSON.stringify(reqData));
     } catch (error) {
       console.log("Error while inserting audit trail");
       console.log(error);
@@ -74,12 +80,14 @@ export async function PUT(req: NextRequest) {
         firmId: firmData.firmId,
         firmName: firmData.firmName.toString(),
         area: firmData.area.toString(),
-        pincode: firmData.pincode
+        pincode: firmData.pincode,
+        firmType: firmData.firmType != null ? firmData.firmType.toString() : "Primary",
+        activeFirm: firmData.activeFirm != null ? firmData.activeFirm : true
       }
     });
 
     try {
-      insertAuditTrailTransaction(req.method, req.url, JSON.stringify(firmData));
+      await insertAuditTrailTransaction(req.method, req.url, JSON.stringify(firmData));
     } catch (error) {
       console.log("Error while inserting audit trail");
       console.log(error);
@@ -107,7 +115,7 @@ export async function DELETE(req: NextRequest) {
     });
 
     try {
-      insertAuditTrailTransaction(req.method, req.url, JSON.stringify(firmData));
+      await insertAuditTrailTransaction(req.method, req.url, JSON.stringify(firmData));
     } catch (error) {
       console.log("Error while inserting audit trail");
       console.log(error);

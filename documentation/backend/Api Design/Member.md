@@ -84,6 +84,7 @@
           "contact": "9875454564",
           "contact2": "897584654",
           "kutchNative": "Rasaliya",
+          "activeMember": true,
           "firm": {
               "firmId": 3,
               "firmName": "JK Saw Mill",
@@ -115,7 +116,9 @@
       "bloodGroup": "AB+",
       "contact": "9875454564",
       "contact2": "897584654",
-      "kutchNative": "Rasaliya"
+      "kutchNative": "Rasaliya",
+      "activeMember": true,
+
     }
     ```
 
@@ -140,6 +143,7 @@
           "contact": "9875454564",
           "contact2": "897584654",
           "kutchNative": "Rasaliya",
+          "activeMember": true,
           "firm": {
               "firmId": 3,
               "firmName": "JK Saw Mill",

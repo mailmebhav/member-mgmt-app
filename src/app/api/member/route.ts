@@ -16,8 +16,15 @@ export async function GET(req: NextRequest, res: NextResponse) {
   }
   let firms
   try {
-  firms = await prisma.member.findMany({ include: { firm: true } });
-  } catch(err) {
+    firms = await prisma.member.findMany({
+      where : {
+        activeMember : true
+      },
+      include: {
+        firm: true
+      }
+    });
+  } catch (err) {
     console.log(err);
   }
 
@@ -56,6 +63,7 @@ export async function POST(req: NextRequest) {
         contact: reqData.contact?.toString(),
         contact2: reqData.contact2?.toString(),
         kutchNative: reqData.kutchNative?.toString(),
+        activeMember: reqData.activeMember != null ? reqData.activeMember : true
       }, include: { firm: true },
     });
 
@@ -99,6 +107,7 @@ export async function PUT(req: NextRequest) {
         contact: reqData.contact?.toString(),
         contact2: reqData.contact2?.toString(),
         kutchNative: reqData.kutchNative?.toString(),
+        activeMember: reqData.activeMember != null ? reqData.activeMember : true
       }, include: { firm: true }
     });
 

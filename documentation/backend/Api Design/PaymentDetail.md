@@ -2,7 +2,7 @@
 
 #### PaymentDetail
 
-- `GET` /api/paymentdetail
+- `GET` `/api/paymentdetail`
   - Request Header
       - `Authorization` - b41fdc1516e6b5dd1fccc05f5273f6b8ae85691ac7113a0577a2053ea4c399e5
 
@@ -42,7 +42,7 @@
       }
       ```
 
-- `POST` /api/paymentdetail
+- `POST` `/api/paymentdetail`
   - Request Header
     - `Authorization` - b41fdc1516e6b5dd1fccc05f5273f6b8ae85691ac7113a0577a2053ea4c399e5
   - Request Body
@@ -92,7 +92,7 @@
     }
     ```
 
-- `PUT` /api/paymentdetail
+- `PUT` `/api/paymentdetail`
   - Request Header
     - `Authorization` - b41fdc1516e6b5dd1fccc05f5273f6b8ae85691ac7113a0577a2053ea4c399e5
   - Request Body
@@ -143,7 +143,7 @@
     }
     ```
 
-- `DELETE` /api/paymentdetail
+- `DELETE` `/api/paymentdetail`
   - Request Header
     - `Authorization` - b41fdc1516e6b5dd1fccc05f5273f6b8ae85691ac7113a0577a2053ea4c399e5
   - Request Body

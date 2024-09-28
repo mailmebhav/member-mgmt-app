@@ -2,7 +2,8 @@
 
 #### Member
 
-- `GET` /api/member
+- `GET` `/api/member`
+	- __Description__ : **Returns only Active Members**
   - Request Header
     - `Authorization` - b41fdc1516e6b5dd1fccc05f5273f6b8ae85691ac7113a0577a2053ea4c399e5
 
@@ -39,7 +40,7 @@
     }
     ```
 
-- `POST` /api/member
+- `POST` `/api/member`
   - Request Header
     - `Authorization` - b41fdc1516e6b5dd1fccc05f5273f6b8ae85691ac7113a0577a2053ea4c399e5
 
@@ -95,7 +96,7 @@
     }
     ```
 
-- `PUT` /api/member
+- `PUT` `/api/member`
   - Request Header
     - `Authorization` - b41fdc1516e6b5dd1fccc05f5273f6b8ae85691ac7113a0577a2053ea4c399e5
 
@@ -154,7 +155,7 @@
     }
     ```
 
-- `DELETE` /api/member
+- `DELETE` `/api/member`
   - Request Header
     - `Authorization` - b41fdc1516e6b5dd1fccc05f5273f6b8ae85691ac7113a0577a2053ea4c399e5
 

@@ -2,7 +2,8 @@
 
 #### Firm
 
-- `GET` /api/firm
+- `GET` `/api/firm`
+  - __Description__ : **Returns only Active Firms**
   - Request Header
     - `Authorization` - b41fdc1516e6b5dd1fccc05f5273f6b8ae85691ac7113a0577a2053ea4c399e5
 
@@ -41,7 +42,7 @@
     }
     ```
 
-- `POST` /api/firm
+- `POST` `/api/firm`
 
   - Request Header
     - `Authorization` - b41fdc1516e6b5dd1fccc05f5273f6b8ae85691ac7113a0577a2053ea4c399e5
@@ -72,7 +73,7 @@
     }
     ```
 
-- `PUT` /api/firm
+- `PUT` `/api/firm`
 
   - Request Header
     - `Authorization` - b41fdc1516e6b5dd1fccc05f5273f6b8ae85691ac7113a0577a2053ea4c399e5
@@ -104,7 +105,7 @@
     }
     ```
 
-- `DELETE` /api/firm
+- `DELETE` `/api/firm`
 
   - Request Header
     - `Authorization` - b41fdc1516e6b5dd1fccc05f5273f6b8ae85691ac7113a0577a2053ea4c399e5

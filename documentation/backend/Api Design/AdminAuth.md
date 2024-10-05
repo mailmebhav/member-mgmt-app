@@ -2,7 +2,7 @@
 
 #### AdminAuth
 
-- `GET` /api/adminauth
+- `GET` `/api/adminauth`
 
   - Response
     - HTTP Status `200`
@@ -27,7 +27,7 @@
     }
     ```
 
-- `POST` /api/adminauth
+- `POST` `/api/adminauth`
 
   - Request Body
     ```json
@@ -51,7 +51,7 @@
     }
     ```
 
-- `POST` /api/adminauth/validate
+- `POST` `/api/adminauth/validate`
 
   - Request Body
     ```json
@@ -73,7 +73,7 @@
     }
     ```
 
-- `PUT` /api/adminauth
+- `PUT` `/api/adminauth`
   - Request Body
     ```json
     {
@@ -97,7 +97,7 @@
     }
     ```
 
-- `DELETE` /api/adminauth
+- `DELETE` `/api/adminauth`
   - Request Body
     ```json
     {

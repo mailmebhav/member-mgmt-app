@@ -4,6 +4,7 @@ import { internalServerErrorResponse, unauthorizedResponse } from "@/utils/respo
 import { NextRequest, NextResponse } from "next/server";
 import { prismaClientSingleton } from "../../../../../lib/prisma";
 import { createExpiryTime, createHash, createToken } from '../../../../utils/hashutil';
+import { insertAuditTrailTransaction } from "@/utils/auditTrailUtil";
 
 const prisma = prismaClientSingleton();
 
@@ -38,6 +39,14 @@ export async function POST(req: NextRequest) {
           expires: createExpiryTime(),
         },
       });
+
+      try {
+        insertAuditTrailTransaction(req.method, req.url, JSON.stringify(reqData));
+      } catch (error) {
+        console.log("Error while inserting audit trail");
+        console.log(error);
+      }
+
       apiResponse.data = { validUser: true, token: token };
       return NextResponse.json(apiResponse);
     } else {

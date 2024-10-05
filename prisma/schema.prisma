@@ -15,30 +15,33 @@ model AdminAuth {
 }
 
 model Firm {
-  firmId   Int      @id @default(autoincrement())
-  firmName String
-  area     String?
-  pincode  Int?
-  member   Member[]
+  firmId      Int       @id @default(autoincrement())
+  firmName    String
+  area        String?
+  pincode     Int?
+  firmType    String?
+  activeFirm  Boolean   @default(true)
+  member      Member[]
 }
 
 model Member {
-  memberId    Int             @id @default(autoincrement())
-  firmId      Int
-  ksmnId      String?
-  yskId       String?
-  familyId    String?
-  memberName  String
-  fatherName  String
-  nokh        String
-  dob         String
-  gender      String
-  bloodGroup  String?
-  contact     String?
-  contact2    String?
-  kutchNative String?
-  firm        Firm            @relation(fields: [firmId], references: [firmId], onDelete: Cascade)
-  payment     PaymentDetail[]
+  memberId        Int             @id @default(autoincrement())
+  firmId          Int
+  ksmnId          String?
+  yskId           String?
+  familyId        String?
+  memberName      String
+  fatherName      String
+  nokh            String
+  dob             String
+  gender          String
+  bloodGroup      String?
+  contact         String?
+  contact2        String?
+  kutchNative     String?
+  firm            Firm            @relation(fields: [firmId], references: [firmId], onDelete: Cascade)
+  activeMember    Boolean         @default(true)
+  payment         PaymentDetail[]
 }
 
 model PaymentDetail {
@@ -55,4 +58,12 @@ model PaymentDetail {
 model PaymentType {
   paymentTypeId Int    @id @default(autoincrement())
   paymentFor    String
+}
+
+model auditTrail {
+  transactionId     Int    @id @default(autoincrement())
+  requestType       String
+  requestUrl        String
+  payload           String
+  transactionTime   DateTime
 }

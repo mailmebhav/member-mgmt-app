@@ -6,4 +6,6 @@ export class Firm {
   area: String = "";
   pincode: number = 0;
   members: Member[] = [];
+  firmType: String = "Primary";
+  activeFirm: boolean = true;
 }

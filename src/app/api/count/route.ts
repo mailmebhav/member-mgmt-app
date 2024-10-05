@@ -3,6 +3,7 @@ import { prismaClientSingleton } from "../../../../lib/prisma";
 import { createApiResponseObject, unauthorizedResponse } from "@/utils/responseHandlers";
 import { validateToken } from "@/utils/validationUtil";
 import { CountResponse } from "@/app/model/CountResponse";
+import { insertAuditTrailTransaction } from "@/utils/auditTrailUtil";
 
 const prisma = prismaClientSingleton();
 
@@ -31,5 +32,13 @@ export async function GET(req: NextRequest, res: NextResponse) {
   count.memberCount = membersCount;
   count.maleMemberCount = maleMemberCount;
   count.femaleMemberCount = femaleMemberCount;
+
+  try {
+    insertAuditTrailTransaction(req.method, req.url, "");
+  } catch (error) {
+    console.log("Error while inserting audit trail");
+    console.log(error);
+  }
+
   return NextResponse.json(createApiResponseObject("OK", "", count));
 }

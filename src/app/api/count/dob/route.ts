@@ -4,6 +4,7 @@ import { createApiResponseObject, unauthorizedResponse } from "@/utils/responseH
 import { validateToken } from "@/utils/validationUtil";
 import { getAge } from "@/utils/dateutils";
 import { getAggregateByAgeAndGender } from "@/utils/stats";
+import { insertAuditTrailTransaction } from "@/utils/auditTrailUtil";
 
 
 const prisma = prismaClientSingleton();
@@ -27,10 +28,18 @@ export async function GET(req: NextRequest, res: NextResponse) {
   datesCount && datesCount.forEach(element => {     
       datesCountNewList.push({
         id: element.memberId,
-        ageInYrs: getAge(element.dob),
+        ageInYrs: getAge(new Date(element.dob)),
         gender: element.gender
       })
   });
-  const aggregateResponse = getAggregateByAgeAndGender(datesCountNewList)
+  const aggregateResponse = getAggregateByAgeAndGender(datesCountNewList);
+
+  try {
+    insertAuditTrailTransaction(req.method, req.url, "");
+  } catch (error) {
+    console.log("Error while inserting audit trail");
+    console.log(error);
+  }
+
    return NextResponse.json(createApiResponseObject("OK", "", aggregateResponse));
 }

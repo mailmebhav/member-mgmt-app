@@ -3,6 +3,7 @@ import { createApiResponseObject, internalServerErrorResponse, unauthorizedRespo
 import { validateToken } from "@/utils/validationUtil";
 import { NextRequest, NextResponse } from "next/server";
 import { prismaClientSingleton } from "../../../../lib/prisma";
+import { insertAuditTrailTransaction } from "@/utils/auditTrailUtil";
 
 const prisma = prismaClientSingleton();
 
@@ -14,7 +15,19 @@ export async function GET(req: NextRequest, res: NextResponse) {
     return unauthorizedResponse();
   }
 
-  const firms = await prisma.firm.findMany();
+  const firms = await prisma.firm.findMany({
+    where: {
+      activeFirm: true
+    }
+  });
+
+  try {
+    await insertAuditTrailTransaction(req.method, req.url, "");
+  } catch (error) {
+    console.log("Error while inserting audit trail");
+    console.log(error);
+  }
+
   return NextResponse.json(createApiResponseObject("OK", "", firms));
 }
 
@@ -33,8 +46,18 @@ export async function POST(req: NextRequest) {
         firmName: reqData.firmName.toString(),
         area: reqData.area.toString(),
         pincode: reqData.pincode,
+        firmType: reqData.firmType != null ? reqData.firmType.toString() : "Primary",
+        activeFirm: reqData.activeFirm != null ? reqData.activeFirm : true
       },
     });
+
+    try {
+      await insertAuditTrailTransaction(req.method, req.url, JSON.stringify(reqData));
+    } catch (error) {
+      console.log("Error while inserting audit trail");
+      console.log(error);
+    }
+
     return NextResponse.json(createApiResponseObject("OK", "", firmData), { status: 201 });
   } catch (error: any) {
     return internalServerErrorResponse(error?.message);
@@ -57,9 +80,18 @@ export async function PUT(req: NextRequest) {
         firmId: firmData.firmId,
         firmName: firmData.firmName.toString(),
         area: firmData.area.toString(),
-        pincode: firmData.pincode
+        pincode: firmData.pincode,
+        firmType: firmData.firmType != null ? firmData.firmType.toString() : "Primary",
+        activeFirm: firmData.activeFirm != null ? firmData.activeFirm : true
       }
     });
+
+    try {
+      await insertAuditTrailTransaction(req.method, req.url, JSON.stringify(firmData));
+    } catch (error) {
+      console.log("Error while inserting audit trail");
+      console.log(error);
+    }
 
     return NextResponse.json(createApiResponseObject("OK", "", updatedFirmData));
   } catch (error: any) {
@@ -81,6 +113,13 @@ export async function DELETE(req: NextRequest) {
         firmId: firmData.firmId
       }
     });
+
+    try {
+      await insertAuditTrailTransaction(req.method, req.url, JSON.stringify(firmData));
+    } catch (error) {
+      console.log("Error while inserting audit trail");
+      console.log(error);
+    }
 
     let response = " Firm ID: " + firmData.firmId + " Firm Name: " + firmData.firmName + " Deleted successfully";
     return NextResponse.json(createApiResponseObject("OK", "", response));

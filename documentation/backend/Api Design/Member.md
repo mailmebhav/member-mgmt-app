@@ -2,7 +2,8 @@
 
 #### Member
 
-- `GET` /api/member
+- `GET` `/api/member`
+	- __Description__ : **Returns only Active Members**
   - Request Header
     - `Authorization` - b41fdc1516e6b5dd1fccc05f5273f6b8ae85691ac7113a0577a2053ea4c399e5
 
@@ -39,7 +40,7 @@
     }
     ```
 
-- `POST` /api/member
+- `POST` `/api/member`
   - Request Header
     - `Authorization` - b41fdc1516e6b5dd1fccc05f5273f6b8ae85691ac7113a0577a2053ea4c399e5
 
@@ -84,6 +85,7 @@
           "contact": "9875454564",
           "contact2": "897584654",
           "kutchNative": "Rasaliya",
+          "activeMember": true,
           "firm": {
               "firmId": 3,
               "firmName": "JK Saw Mill",
@@ -94,7 +96,7 @@
     }
     ```
 
-- `PUT` /api/member
+- `PUT` `/api/member`
   - Request Header
     - `Authorization` - b41fdc1516e6b5dd1fccc05f5273f6b8ae85691ac7113a0577a2053ea4c399e5
 
@@ -115,7 +117,9 @@
       "bloodGroup": "AB+",
       "contact": "9875454564",
       "contact2": "897584654",
-      "kutchNative": "Rasaliya"
+      "kutchNative": "Rasaliya",
+      "activeMember": true,
+
     }
     ```
 
@@ -140,6 +144,7 @@
           "contact": "9875454564",
           "contact2": "897584654",
           "kutchNative": "Rasaliya",
+          "activeMember": true,
           "firm": {
               "firmId": 3,
               "firmName": "JK Saw Mill",
@@ -150,7 +155,7 @@
     }
     ```
 
-- `DELETE` /api/member
+- `DELETE` `/api/member`
   - Request Header
     - `Authorization` - b41fdc1516e6b5dd1fccc05f5273f6b8ae85691ac7113a0577a2053ea4c399e5
 

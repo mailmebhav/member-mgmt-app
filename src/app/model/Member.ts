@@ -16,4 +16,5 @@ export class Member {
   contact: String = "";
   contact2: String = "";
   kutchNative: String = "";
+  activeMember: boolean = true;
 }

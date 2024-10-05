@@ -3,6 +3,7 @@ import { createApiResponseObject, internalServerErrorResponse, unauthorizedRespo
 import { validateToken } from "@/utils/validationUtil";
 import { NextRequest, NextResponse } from "next/server";
 import { prismaClientSingleton } from "../../../../lib/prisma";
+import { insertAuditTrailTransaction } from "@/utils/auditTrailUtil";
 
 const prisma = prismaClientSingleton();
 
@@ -15,10 +16,25 @@ export async function GET(req: NextRequest, res: NextResponse) {
   }
   let firms
   try {
-  firms = await prisma.member.findMany({ include: { firm: true } });
-  } catch(err) {
+    firms = await prisma.member.findMany({
+      where : {
+        activeMember : true
+      },
+      include: {
+        firm: true
+      }
+    });
+  } catch (err) {
     console.log(err);
   }
+
+  try {
+    insertAuditTrailTransaction(req.method, req.url, "");
+  } catch (error) {
+    console.log("Error while inserting audit trail");
+    console.log(error);
+  }
+
   return NextResponse.json(createApiResponseObject("OK", "", firms));
 }
 
@@ -47,8 +63,17 @@ export async function POST(req: NextRequest) {
         contact: reqData.contact?.toString(),
         contact2: reqData.contact2?.toString(),
         kutchNative: reqData.kutchNative?.toString(),
+        activeMember: reqData.activeMember != null ? reqData.activeMember : true
       }, include: { firm: true },
     });
+
+    try {
+      insertAuditTrailTransaction(req.method, req.url, JSON.stringify(reqData));
+    } catch (error) {
+      console.log("Error while inserting audit trail");
+      console.log(error);
+    }
+
     return NextResponse.json(createApiResponseObject("OK", "", memberData), { status: 201 });
   } catch (error: any) {
     return internalServerErrorResponse(error?.message);
@@ -82,8 +107,16 @@ export async function PUT(req: NextRequest) {
         contact: reqData.contact?.toString(),
         contact2: reqData.contact2?.toString(),
         kutchNative: reqData.kutchNative?.toString(),
+        activeMember: reqData.activeMember != null ? reqData.activeMember : true
       }, include: { firm: true }
     });
+
+    try {
+      insertAuditTrailTransaction(req.method, req.url, JSON.stringify(reqData));
+    } catch (error) {
+      console.log("Error while inserting audit trail");
+      console.log(error);
+    }
 
     return NextResponse.json(createApiResponseObject("OK", "", updatedMemberData));
   } catch (error: any) {
@@ -105,6 +138,13 @@ export async function DELETE(req: NextRequest) {
       memberId: reqData.memberId
     }
   });
+
+  try {
+    insertAuditTrailTransaction(req.method, req.url, JSON.stringify(reqData));
+  } catch (error) {
+    console.log("Error while inserting audit trail");
+    console.log(error);
+  }
 
   let response = " Member ID: " + reqData.memberId + " Member Name: " + reqData.memberName + " Deleted successfully";
   return NextResponse.json(createApiResponseObject("OK", "", response));
